@@ -24,57 +24,57 @@ users.post('/api/register', (req, res) => {
     User.findOne({
         email: req.body.email
     })
-    .then(user => {
-        if (!user) {
-            bcrypt.hash(req.body.password, 10, (err, hash) => {
-                userData.password = hash
-                User.create(userData)
-                    .then(user => {
-                        res.json({ status: user.email + ' registered' });
-                    })
-                    .catch(err => {
-                        res.send('error: ' + err);
-                    })
-            })
-        }
-        else {
-            res.json({ error: 'User already exists' });
-        }
-    })
-    .catch(err => {
-        res.send('error: ' + err);
-    })
+        .then(user => {
+            if (!user) {
+                bcrypt.hash(req.body.password, 10, (err, hash) => {
+                    userData.password = hash
+                    User.create(userData)
+                        .then(user => {
+                            res.json({ status: user.email + ' registered' });
+                        })
+                        .catch(err => {
+                            res.send('error: ' + err);
+                        })
+                })
+            }
+            else {
+                res.json({ error: 'User already exists' });
+            }
+        })
+        .catch(err => {
+            res.send('error: ' + err);
+        })
 })
 
 users.post('/api/login', (req, res) => {
     User.findOne({
         email: req.body.email
     })
-    .then(user => {
-        if(user) {
-            if(bcrypt.compareSync(req.body.password, user.password)) {
-                const payload = {
-                    _id: user._id,
-                    first_name: user.first_name,
-                    last_name: user.last_name,
-                    email: user.email
+        .then(user => {
+            if (user) {
+                if (bcrypt.compare(req.body.password, user.password)) {
+                    const payload = {
+                        _id: user._id,
+                        first_name: user.first_name,
+                        last_name: user.last_name,
+                        email: user.email
+                    }
+                    let token = jwt.sign(payload, process.env.SECRET_KEY, {
+                        expiresIn: 1440
+                    })
+                    res.send(token)
                 }
-                let token = jwt.sign(payload, process.env.SECRET_KEY, {
-                    expiresIn: 1440
-                })
-                res.send(token)
+                else {
+                    res.json({ error: "User does not exist" });
+                }
             }
             else {
                 res.json({ error: "User does not exist" });
             }
-        }
-        else {
-            res.json({ error: "User does not exist" });
-        }
-    })
-    .catch(err => {
-        res.send('error: ' + err);
-    })
+        })
+        .catch(err => {
+            res.send('error: ' + err);
+        })
 })
 
 users.get('/api/profile', (req, res) => {
@@ -82,27 +82,27 @@ users.get('/api/profile', (req, res) => {
     User.findOne({
         _id: decoded._id
     })
-    .then(user => {
-        if(user) {
+        .then(user => {
+            if (user) {
                 res.json(user)
-        }
-        else {
-            res.json({ error: "User does not exist" });
-        }
-    })
-    .catch(err => {
-        res.send('error: ' + err);
-    })
+            }
+            else {
+                res.json({ error: "User does not exist" });
+            }
+        })
+        .catch(err => {
+            res.send('error: ' + err);
+        })
 })
 
 users.get('/api/testusers', (req, res) => {
-    User.find({})
+    User.find()
     .then(user => {
-        if(user) {
+        if (user) {
             res.json(user)
         }
         else {
-            res.json({ error: "User does not exist" });
+            res.json({ error: "Users do not exist" });
         }
     })
     .catch(err => {
