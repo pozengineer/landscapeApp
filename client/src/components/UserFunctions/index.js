@@ -2,9 +2,9 @@ import axios from 'axios';
 
 var serverUrl =  "http://localhost:5001";
 // (change serverUrl on heroku)
-// if (process.env.NODE_ENV === "production") {
-//     serverUrl = "https://google-books-takuji.herokuapp.com";
-// } 
+if (process.env.NODE_ENV === "production") {
+    serverUrl = 'https://pure-wave-73002.herokuapp.com/';
+} 
 
 export const register = newUser => {
     return axios
