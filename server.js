@@ -36,7 +36,7 @@ const db = require("./config/keys").mongoURI;
 // Connect to MongoDB
 mongoose.connect( process.env.MONGODB_URI || "mongodb://localhost/landscapeapp", {
   useNewUrlParser: true,
-//   useFindAndModify: false
+  useFindAndModify: false
 })
 .then(() => console.log("MongoDB successfully connected"))
 .catch(err => console.log(err));
