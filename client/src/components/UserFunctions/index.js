@@ -1,8 +1,14 @@
 import axios from 'axios';
 
+var serverUrl =  "http://localhost:5001";
+// (change serverUrl on heroku)
+// if (process.env.NODE_ENV === "production") {
+//     serverUrl = "https://google-books-takuji.herokuapp.com";
+// } 
+
 export const register = newUser => {
     return axios
-    .post('user/register', {
+    .post(serverUrl + '/api/register', {
         first_name: newUser.first_name,
         last_name: newUser.last_name,
         email: newUser.email,
@@ -15,7 +21,7 @@ export const register = newUser => {
 
 export const login = user => {
     return axios
-    .post('user/login', {
+    .post(serverUrl + '/api/login', {
         email: user.email,
         password: user.password
     })

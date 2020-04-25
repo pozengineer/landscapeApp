@@ -11,7 +11,7 @@ const User = require("../models/User");
 users.use(cors());
 process.env.SECRET_KEY = 'secret';
 
-users.post('/register', (req, res) => {
+users.post('/api/register', (req, res) => {
     const today = new Date()
     const userData = {
         first_name: req.body.first_name,
@@ -46,7 +46,7 @@ users.post('/register', (req, res) => {
     })
 })
 
-users.post('/login', (req, res) => {
+users.post('/api/login', (req, res) => {
     User.findOne({
         email: req.body.email
     })
@@ -77,7 +77,7 @@ users.post('/login', (req, res) => {
     })
 })
 
-users.get('/profile', (req, res) => {
+users.get('/api/profile', (req, res) => {
     var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
     User.findOne({
         _id: decoded._id
@@ -85,6 +85,21 @@ users.get('/profile', (req, res) => {
     .then(user => {
         if(user) {
                 res.json(user)
+        }
+        else {
+            res.json({ error: "User does not exist" });
+        }
+    })
+    .catch(err => {
+        res.send('error: ' + err);
+    })
+})
+
+users.get('/api/testusers', (req, res) => {
+    User.find({})
+    .then(user => {
+        if(user) {
+            res.json(user)
         }
         else {
             res.json({ error: "User does not exist" });

@@ -3,9 +3,7 @@ const cors = require('cors');
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-// const passport = require("passport");
-// const routes = require("./routes/api-routes.js");
-const Users = require("./routes/Users.js");
+const routes = require("./routes/user-routes.js");
 
 const app = express();
 // const User = require("./models/User.js");
@@ -58,13 +56,13 @@ mongoose.connect( process.env.MONGODB_URI || mongoURI, {
 // require("./config/passport")(passport);
 
 // Routes
-app.use("/users", Users);
+app.use(routes);
 
-// app.use((req, res, next) => {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // Add routes, both API and view
 // app.use(routes);

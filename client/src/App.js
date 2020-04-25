@@ -15,7 +15,7 @@ import Profile from "./components/Profile";
 // import CircleCalc from './components/pages/CircleCalc';
 // import SemiCircleCalc from './components/pages/SemiCircleCalc';
 // // import ThreeD from './components/ThreeD';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
     render() {
