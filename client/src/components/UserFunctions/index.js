@@ -1,14 +1,8 @@
 import axios from 'axios';
 
-var serverUrl =  "http://localhost:5001";
-// (change serverUrl on heroku)
-if (process.env.NODE_ENV === "production") {
-    serverUrl = 'https://pure-wave-73002.herokuapp.com/';
-} 
-
 export const register = newUser => {
     return axios
-    .post(serverUrl + '/api/register', {
+    .post('/api/register', {
         first_name: newUser.first_name,
         last_name: newUser.last_name,
         email: newUser.email,
@@ -21,7 +15,7 @@ export const register = newUser => {
 
 export const login = user => {
     return axios
-    .post(serverUrl + '/api/login', {
+    .post('/api/login', {
         email: user.email,
         password: user.password
     })
