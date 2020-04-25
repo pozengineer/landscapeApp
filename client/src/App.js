@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import StartUp from './components/pages/StartUp';
+import ShapeSelect from './components/pages/ShapeSelect';
+import SquareCalc from './components/pages/SquareCalc';
+import CircleCalc from './components/pages/CircleCalc';
+import SemiCircleCalc from './components/pages/SemiCircleCalc';
+// import ThreeD from './components/ThreeD';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router >
+            <div >
+                <Route exact path="/" component={StartUp} />
+                <Route exact path="/shapeSelect" component={ShapeSelect} />
+                <Route exact path="/squareCalc" component={SquareCalc} />
+                <Route exact path="/circleCalc" component={CircleCalc} />
+                <Route exact path="/semi-CircleCalc" component={SemiCircleCalc} />
+            </div>
+        </Router>
+
+    );
 }
 
 export default App;
