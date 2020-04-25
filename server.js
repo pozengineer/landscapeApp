@@ -1,20 +1,21 @@
 const express = require("express");
+const cors = require('cors');
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const passport = require("passport");
-// const routes = require("./routes");
-const users = require("./routes/api/users.js");
+// const passport = require("passport");
+// const routes = require("./routes/api-routes.js");
+const Users = require("./routes/Users.js");
 
 const app = express();
-const User = require("./models/User.js");
+// const User = require("./models/User.js");
 const dotenv = require("dotenv");
 dotenv.config();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 5001;
 
 // Define middleware here
 app.use(logger("dev"));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
@@ -22,21 +23,24 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Bodyparser middleware
+app.use(bodyParser.json());
+app.use(cors());
 app.use(
     bodyParser.urlencoded({
         extended: false
     })
 );
-app.use(bodyParser.json());
+
 app.use(express.static("public"));
 
 // DB Config
-const db = require("./config/keys").mongoURI;
+// const db = require("./config/keys").mongoURI;
+const mongoURI = "mongodb://localhost/landscapeapp";
 
 // Connect to MongoDB
-mongoose.connect( process.env.MONGODB_URI || "mongodb://localhost/landscapeapp", {
+mongoose.connect( process.env.MONGODB_URI || mongoURI, {
   useNewUrlParser: true,
-  useFindAndModify: false
+//   useFindAndModify: false
 })
 .then(() => console.log("MongoDB successfully connected"))
 .catch(err => console.log(err));
@@ -48,13 +52,13 @@ mongoose.connect( process.env.MONGODB_URI || "mongodb://localhost/landscapeapp",
 // .catch(err => console.log(err));
 
 // Passport middleware
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
 // Passport config
-require("./config/passport")(passport);
+// require("./config/passport")(passport);
 
 // Routes
-app.use("/api/users", users);
+app.use("/users", Users);
 
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "*");
