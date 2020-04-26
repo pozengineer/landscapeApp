@@ -2,7 +2,7 @@ import React from "react";
 // import "./style.css";
 // import GameLoop from './components/three.js';
 import * as THREE from "three";
-import ThreeD from '../../ThreeD';
+import ThreeD from '../../ThreeD/threeD';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ThemeProvider } from '@zendeskgarden/react-theming';
 import { Dropdown, Menu, Item, Trigger } from '@zendeskgarden/react-dropdowns';

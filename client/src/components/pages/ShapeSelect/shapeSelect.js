@@ -6,7 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 // import { ThemeProvider } from '@zendeskgarden/react-theming';
 // import { Dropdown, Menu, Item, Trigger } from '@zendeskgarden/react-dropdowns';
 import * as THREE from "three";
-import ThreeD from '../../ThreeD';
+import ThreeD from '../../ThreeD/threeD';
 import { Canvas } from "react-three-fiber";
 
 function ShapeSelect() {
@@ -82,7 +82,7 @@ function ShapeSelect() {
                                 <Dropdown.Menu>
                                     <Dropdown.Item href="squareCalc">Square</Dropdown.Item>
                                     <Dropdown.Item href="circleCalc">Circle</Dropdown.Item>
-                                    <Dropdown.Item href="semi-CircleCalc">Semi-Circle</Dropdown.Item>
+                                    <Dropdown.Item href="semiCircleCalc">Semi-Circle</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
                         </Col>

@@ -3,7 +3,7 @@ import logo from '../../../logo.svg';
 import "./style.css";
 import { Container, Row, Col } from 'react-bootstrap';
 // import GameLoop from './components/three.js';
-// import ThreeD from '../../ThreeD';
+// import ThreeD from '../../ThreeD/threeD';
 
 function StartUp() {
     return (

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import jwt_decode from 'jwt-decode';
+import { Link } from "react-router-dom";
 
 class Profile extends Component {
     constructor() {
@@ -46,6 +47,7 @@ class Profile extends Component {
                         </tbody>
                     </table>
                 </div>
+                <Link to='shapeSelect'>Let's Go Landscaping</Link>
             </div>
         )
     }

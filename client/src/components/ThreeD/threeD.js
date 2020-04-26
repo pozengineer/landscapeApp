@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import './style.css';
 // import { Container, Row, Col } from 'react-bootstrap';
 import * as THREE from "three";
-import WEBGL from '../WEBGL';
+import WEBGL from '../WEBGL/webGL';
 
 class ThreeD extends Component {
     constructor(props) {
