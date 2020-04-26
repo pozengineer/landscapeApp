@@ -1,52 +1,61 @@
 const express = require("express");
-const users = express.Router();
+const router = express.Router();
 const bcrypt = require("bcryptjs");
 const cors = require('cors');
 const jwt = require("jsonwebtoken");
-// const keys = require("../../config/keys");
-// const passport = require("passport");
+const keys = require("../config/keys");
+const passport = require("passport");
+
+// Load input validation
+const validateRegisterInput = require("../validation/register");
+const validateLoginInput = require("../validation/login");
 
 // Load User model
 const User = require("../models/User");
-users.use(cors());
+router.use(cors())
 process.env.SECRET_KEY = 'secret';
 
-users.post('/api/register', (req, res) => {
-    const today = new Date()
-    const userData = {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.email,
-        password: req.body.password,
-        created: today
+router.post('/api/register', (req, res) => {
+    // Form validation
+    const { errors, isValid } = validateRegisterInput(req.body);
+
+    // Check validation
+    if (!isValid) {
+        return res.status(400).json(errors);
     }
 
     User.findOne({
         email: req.body.email
     })
-        .then(user => {
-            if (!user) {
-                bcrypt.hash(req.body.password, 10, (err, hash) => {
-                    userData.password = hash
-                    User.create(userData)
-                        .then(user => {
-                            res.json({ status: user.email + ' registered' });
-                        })
-                        .catch(err => {
-                            res.send('error: ' + err);
-                        })
+    .then(user => {
+        if (user) {
+            return res.status(400).json({ email: "Email already exists" });
+        }
+        else {
+            const today = new Date()
+            const userData = {
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                email: req.body.email,
+                password: req.body.password,
+                created: today
+            }
+            bcrypt.hash(req.body.password, 10, (err, hash) => {
+                if (err) throw err;
+                userData.password = hash
+                User.create(userData)
+                .then(user => {
+                    res.json(user);
                 })
-            }
-            else {
-                res.json({ error: 'User already exists' });
-            }
-        })
-        .catch(err => {
-            res.send('error: ' + err);
-        })
+                .catch(err => {
+                    console.log(err);
+                })
+            })
+        }
+    })
 })
 
-users.post('/api/login', (req, res) => {
+router.post('/api/login', (req, res) => {
     User.findOne({
         email: req.body.email
     })
@@ -77,7 +86,7 @@ users.post('/api/login', (req, res) => {
         })
 })
 
-users.get('/api/profile', (req, res) => {
+router.get('/api/profile', (req, res) => {
     var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
     User.findOne({
         _id: decoded._id
@@ -95,19 +104,19 @@ users.get('/api/profile', (req, res) => {
         })
 })
 
-users.get('/api/testusers', (req, res) => {
+router.get('/api/displayusers', (req, res) => {
     User.find()
-    .then(user => {
-        if (user) {
-            res.json(user)
-        }
-        else {
-            res.json({ error: "Users do not exist" });
-        }
-    })
-    .catch(err => {
-        res.send('error: ' + err);
-    })
+        .then(user => {
+            if (user) {
+                res.json(user)
+            }
+            else {
+                res.json({ error: "Users do not exist" });
+            }
+        })
+        .catch(err => {
+            res.send('error: ' + err);
+        })
 })
 
-module.exports = users;
+module.exports = router;

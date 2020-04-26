@@ -4,6 +4,7 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const routes = require("./routes/user-routes.js");
+const passport = require("passport");
 
 const app = express();
 // const User = require("./models/User.js");
@@ -43,17 +44,11 @@ mongoose.connect( process.env.MONGODB_URI || mongoURI, {
 .then(() => console.log("MongoDB successfully connected"))
 .catch(err => console.log(err));
 
-// mongoose.connect(db, {
-//     useNewUrlParser: true
-// })
-// .then(() => console.log("MongoDB successfully connected"))
-// .catch(err => console.log(err));
-
 // Passport middleware
-// app.use(passport.initialize());
+app.use(passport.initialize());
 
 // Passport config
-// require("./config/passport")(passport);
+require("./config/passport")(passport);
 
 // Routes
 app.use(routes);
@@ -64,11 +59,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// Add routes, both API and view
-// app.use(routes);
-
-// Connect to the Mongo DB
-// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist");
 
 // Start the API server
 app.listen(PORT, function () {
