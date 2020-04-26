@@ -13,19 +13,19 @@ function CircleCalc() {
         return geometry;
     }
 
-    const handleInputChange = event => {
-        let value = event.target;
-        console.log(`Selected: ${value}`);
-        if (value === 'pebble') {
-            console.log('heavy hitter!');
-        }
-        else if (value === 'gardenMix') {
-            console.log('planting!');
-        }
-        else {
-            console.log('cement mixing!');
-        }
-    };
+    // const handleInputChange = event => {
+    //     let value = event.target;
+    //     console.log(`Selected: ${value}`);
+    //     if (value === 'pebble') {
+    //         console.log('heavy hitter!');
+    //     }
+    //     else if (value === 'gardenMix') {
+    //         console.log('planting!');
+    //     }
+    //     else {
+    //         console.log('cement mixing!');
+    //     }
+    // };
     return (
         <div className="App">
             <header className="App-header">

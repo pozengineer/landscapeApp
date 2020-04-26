@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { login } from '../UserFunctions/userFunctions.js';
+import { loginUser } from '../UserFunctions/userFunctions';
 
 class Login extends Component {
     constructor() {
         super()
         this.state = {
             email: '',
-            password: '',
+            password: ''
         }
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -22,7 +22,7 @@ class Login extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        login(user).then(res => {
+        loginUser(user).then(res => {
             if(res) {
                 this.props.history.push('/profile');
             }

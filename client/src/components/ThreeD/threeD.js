@@ -32,15 +32,15 @@ class ThreeD extends Component {
             // triShape.lineTo(length, 0);
             triShape.lineTo(0, 0);
 
-            var extrudeSettings = {
-                steps: 2,
-                depth: 4,
-                bevelEnabled: false,
-                bevelThickness: 1,
-                bevelSize: 1,
-                bevelOffset: 0,
-                bevelSegments: 1
-            };
+            // var extrudeSettings = {
+            //     steps: 2,
+            //     depth: 4,
+            //     bevelEnabled: false,
+            //     bevelThickness: 1,
+            //     bevelSize: 1,
+            //     bevelOffset: 0,
+            //     bevelSegments: 1
+            // };
             // geometry
 
             // var geometry = new THREE.ExtrudeGeometry(shape, options);

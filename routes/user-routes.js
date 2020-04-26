@@ -27,7 +27,7 @@ router.post('/api/register', (req, res) => {
     User.findOne({
         email: req.body.email
     })
-    .then(user => {
+    .then( user => {
         if (user) {
             return res.status(400).json({ email: "Email already exists" });
         }
@@ -106,9 +106,9 @@ router.get('/api/profile', (req, res) => {
 
 router.get('/api/displayusers', (req, res) => {
     User.find()
-        .then(user => {
-            if (user) {
-                res.json(user)
+        .then(response => {
+            if (response) {
+                res.json(response)
             }
             else {
                 res.json({ error: "Users do not exist" });

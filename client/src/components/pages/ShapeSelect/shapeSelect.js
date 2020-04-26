@@ -7,10 +7,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 // import { Dropdown, Menu, Item, Trigger } from '@zendeskgarden/react-dropdowns';
 import * as THREE from "three";
 import ThreeD from '../../ThreeD/threeD';
-import { Canvas } from "react-three-fiber";
+// import { Canvas } from "react-three-fiber";
 
 function ShapeSelect() {
-    let shapeSelect;
     let geometry;
 
     const circleGeometry = element => {
@@ -20,11 +19,11 @@ function ShapeSelect() {
 
     const semiCircleGeometry = element => {
         // path to extrude along
-        var path = new THREE.CatmullRomCurve3([
-            new THREE.Vector3(0, 0, 0),
-            new THREE.Vector3(10, 10, 10),
-            new THREE.Vector3(20, 10, 20)
-        ]);
+        // var path = new THREE.CatmullRomCurve3([
+        //     new THREE.Vector3(0, 0, 0),
+        //     new THREE.Vector3(10, 10, 10),
+        //     new THREE.Vector3(20, 10, 20)
+        // ]);
 
         // points that define shape
         var pts = [];
@@ -53,21 +52,21 @@ function ShapeSelect() {
         return geometry;
     }
 
-    const handleInputChange = value => {
-        console.log(`Selected: ${value}`);
-        if (value === 'square') {
-            console.log('heavy hitter!');
-            shapeSelect = new THREE.BoxGeometry(3, 3, 3);
-        }
-        else if (value === 'circle') {
-            console.log('planting!');
-            shapeSelect = new THREE.CylinderGeometry(2, 2, 3, 20);
-        }
-        else {
-            console.log('cement mixing!');
-            shapeSelect = new THREE.TorusKnotGeometry(1.5, 0.5, 100, 8);
-        }
-    }
+    // const handleInputChange = value => {
+    //     console.log(`Selected: ${value}`);
+    //     if (value === 'square') {
+    //         console.log('heavy hitter!');
+    //         shapeSelect = new THREE.BoxGeometry(3, 3, 3);
+    //     }
+    //     else if (value === 'circle') {
+    //         console.log('planting!');
+    //         shapeSelect = new THREE.CylinderGeometry(2, 2, 3, 20);
+    //     }
+    //     else {
+    //         console.log('cement mixing!');
+    //         shapeSelect = new THREE.TorusKnotGeometry(1.5, 0.5, 100, 8);
+    //     }
+    // }
     return (
         <div className='App'>
             <header className='App-header'>
