@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { registerUser } from '../UserFunctions/userFunctions';
+import { registerUser, getUsers } from '../UserFunctions/userFunctions';
 
 class Register extends Component {
     constructor(props) {
@@ -18,6 +18,31 @@ class Register extends Component {
     handleValidation() {
         let errors = {};
         let formIsValid = true;
+        // email
+        const inputEmail = this.state.email;
+        // const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
+        const emailRegex = /^\w+([\.-]?\w+)*@[a-z]+([\.-]?[a-z]+)*(\.[a-z]{2,4})+$/;
+        const emailResult = emailRegex.test(inputEmail);
+        if (!this.state.email) {
+            formIsValid = false;
+            errors["email"] = "Cannot be empty";
+        }
+        else if (!emailResult) {
+            formIsValid = false;
+            errors["email"] = "Email is not valid";
+        }
+        else {}
+
+        // password
+        if (!this.state.password) {
+            formIsValid = false;
+            errors["password"] = "Cannot be empty";
+        }
+        else if (this.state.password.length < 6) {
+            formIsValid = false;
+            errors["password"] = "Password must be at least 6 characters";
+        }
+        else {}
 
         // firstName
         if (!this.state.first_name) {
@@ -30,7 +55,7 @@ class Register extends Component {
                 errors["first_name"] = "Only letters";
             }
         }
-        else { }
+        else {}
 
         // lastName
         if (!this.state.last_name) {
@@ -41,32 +66,7 @@ class Register extends Component {
             formIsValid = false;
             errors["last_name"] = "Only letters";
         }
-        else { }
-
-        //Email
-        const inputEmail = this.state.email;
-        // const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
-        const emailRegex = /^\w+([\.-]?\w+)*@[a-z]+([\.-]?[a-z]+)*(\.[a-z]{2,4})+$/
-        const emailResult = emailRegex.test(inputEmail);
-        if (!this.state.email) {
-            formIsValid = false;
-            errors["email"] = "Cannot be empty";
-        }
-        else if (!emailResult) {
-            formIsValid = false;
-            errors["email"] = "Email is not valid";
-        }
         else {}
-
-        if (!this.state.password) {
-            formIsValid = false;
-            errors["password"] = "Cannot be empty";
-        }
-        else if (this.state.password.length < 6) {
-            formIsValid = false;
-            errors["password"] = "Password must be at least 6 characters";
-        }
-        else { }
 
         this.setState({ errors: errors });
         return formIsValid;
@@ -77,18 +77,38 @@ class Register extends Component {
     }
 
     onSubmit(event) {
+        let errors = {};
         event.preventDefault();
+        const userData = {
+            first_name: this.state.first_name,
+            last_name: this.state.last_name,
+            email: this.state.email,
+            password: this.state.password
+        }
+        var result = this.handleValidation();
+        console.log(result);
         if (this.handleValidation()) {
-            const userData = {
-                first_name: this.state.first_name,
-                last_name: this.state.last_name,
-                email: this.state.email,
-                password: this.state.password
-            }
-            registerUser(userData).then(res => {
-                this.props.history.push('/login')
+            getUsers().then(data => {
+                console.log(data);
+
+                var destination = data.map(element => {
+                    if (element.email === this.state.email) {
+                        console.log('foundmatch');
+                        console.log(element.email)
+                        return true;
+                    }
+                }).filter(item => { return item; })[0];
+                if (!destination) {
+                    registerUser(userData).then(res => {
+                        this.props.history.push('/login')
+                    })
+                    console.log("Form submitted");
+                }
+                else {
+                    errors["email"] = "Email already exists";
+                    this.setState({ errors: errors });
+                }
             })
-            console.log("Form submitted");
         }
         else {
             console.log("Form has errors.")

@@ -27,9 +27,10 @@ router.post('/api/register', (req, res) => {
     User.findOne({
         email: req.body.email
     })
-    .then( user => {
-        if (user) {
-            return res.status(400).json({ email: "Email already exists" });
+    .then( response => {
+        if (response) {
+            res.status(400).json({ email: "Email already exists" });
+            return res.send("Email already exists");
         }
         else {
             const today = new Date()
@@ -69,7 +70,8 @@ router.post('/api/login', (req, res) => {
                         email: user.email
                     }
                     let token = jwt.sign(payload, process.env.SECRET_KEY, {
-                        expiresIn: 1440
+                        // 1 year in seconds
+                        expiresIn: 31556926 
                     })
                     res.send(token)
                 }
