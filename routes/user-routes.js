@@ -60,8 +60,8 @@ router.post('/api/login', (req, res) => {
     User.findOne({
         email: req.body.email
     })
-        .then(user => {
-            if (user) {
+        .then(response => {
+            if (response) {
                 if (bcrypt.compare(req.body.password, user.password)) {
                     const payload = {
                         _id: user._id,
@@ -93,9 +93,9 @@ router.get('/api/profile', (req, res) => {
     User.findOne({
         _id: decoded._id
     })
-        .then(user => {
-            if (user) {
-                res.json(user)
+        .then(response => {
+            if (response) {
+                res.json(response)
             }
             else {
                 res.json({ error: "User does not exist" });
