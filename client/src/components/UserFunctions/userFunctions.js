@@ -21,7 +21,7 @@ export const registerUser = userData => {
 }
 
 export const loginUser = userData => {
-    console.log(userData);
+    // console.log(userData);
     return axios
     .post(serverUrl + '/api/login', {
         email: userData.email,

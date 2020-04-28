@@ -62,12 +62,12 @@ router.post('/api/login', (req, res) => {
     })
         .then(response => {
             if (response) {
-                if (bcrypt.compare(req.body.password, user.password)) {
+                if (bcrypt.compare(req.body.password, response.password)) {
                     const payload = {
-                        _id: user._id,
-                        first_name: user.first_name,
-                        last_name: user.last_name,
-                        email: user.email
+                        _id: response._id,
+                        first_name: response.first_name,
+                        last_name: response.last_name,
+                        email: response.email
                     }
                     let token = jwt.sign(payload, process.env.SECRET_KEY, {
                         // 1 year in seconds
