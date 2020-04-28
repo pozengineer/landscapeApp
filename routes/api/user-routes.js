@@ -3,15 +3,15 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const cors = require('cors');
 const jwt = require("jsonwebtoken");
-const keys = require("../config/keys");
+const keys = require("../../config/keys");
 const passport = require("passport");
 
 // Load input validation
-const validateRegisterInput = require("../validation/register");
-const validateLoginInput = require("../validation/login");
+const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
 
 // Load User model
-const User = require("../models/User");
+const User = require("../../models/User");
 router.use(cors())
 process.env.SECRET_KEY = 'secret';
 
@@ -62,7 +62,7 @@ router.post('/api/login', (req, res) => {
     })
         .then(response => {
             if (response) {
-                if (bcrypt.compare(req.body.password, response.password)) {
+                if (bcrypt.compareSync(req.body.password, response.password)) {
                     const payload = {
                         _id: response._id,
                         first_name: response.first_name,
@@ -76,11 +76,11 @@ router.post('/api/login', (req, res) => {
                     res.send(token)
                 }
                 else {
-                    res.json({ error: "User does not exist" });
+                    res.status(400).json({ error: "User does not exist" });
                 }
             }
             else {
-                res.json({ error: "User does not exist" });
+                res.status(400).json({ error: "User does not exist" });
             }
         })
         .catch(err => {
@@ -98,7 +98,7 @@ router.get('/api/profile', (req, res) => {
                 res.json(response)
             }
             else {
-                res.json({ error: "User does not exist" });
+                res.status(400).json({ error: "User does not exist" });
             }
         })
         .catch(err => {
@@ -113,7 +113,7 @@ router.get('/api/displayusers', (req, res) => {
                 res.json(response)
             }
             else {
-                res.json({ error: "Users do not exist" });
+                res.status(400).json({ error: "Users do not exist" });
             }
         })
         .catch(err => {

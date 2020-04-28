@@ -3,7 +3,7 @@ const cors = require('cors');
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const routes = require("./routes/user-routes.js");
+const routes = require("./routes");
 const passport = require("passport");
 
 const app = express();
