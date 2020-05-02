@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const routes = require("./routes");
 const passport = require("passport");
+const path = require('path');
 
 const app = express();
 // const User = require("./models/User.js");
@@ -39,7 +40,7 @@ const mongoURI = "mongodb://localhost/landscapeapp";
 // Connect to MongoDB
 mongoose.connect( process.env.MONGODB_URI || mongoURI, {
   useNewUrlParser: true,
-//   useFindAndModify: false
+  useFindAndModify: false
 })
 .then(() => console.log("MongoDB successfully connected"))
 .catch(err => console.log(err));

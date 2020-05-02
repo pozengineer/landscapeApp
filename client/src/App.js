@@ -14,6 +14,7 @@ import ShapeSelect from './components/pages/ShapeSelect/shapeSelect';
 import SquareCalc from './components/pages/SquareCalc/squareCalc';
 import CircleCalc from './components/pages/CircleCalc/circleCalc';
 import SemiCircleCalc from './components/pages/SemiCircleCalc/semiCircleCalc';
+import Footer from './components/Footer/footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component {
@@ -33,6 +34,7 @@ class App extends Component {
                             <Route exact path="/circleCalc" component={CircleCalc} />
                             <Route exact path="/semiCircleCalc" component={SemiCircleCalc} />
                         </div>
+                        <Footer/>
                     </div>
                 </Router>
         );
