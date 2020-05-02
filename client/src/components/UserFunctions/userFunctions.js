@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let serverUrl = "http://localhost:5001"
+// let serverUrl = "http://localhost:5001"
 // (change serverUrl on heroku)
 // if (process.env.NODE_ENV === "production") {
 //     serverUrl = 'https://pure-wave-73002.herokuapp.com/';
@@ -38,7 +38,7 @@ export const loginUser = userData => {
 
 export const getUsers = userData => {
     return axios
-    .get(serverUrl + '/api/displayusers', {
+    .get('/api/displayusers', {
     })
     .then(response => {
         // console.log(response.data);
