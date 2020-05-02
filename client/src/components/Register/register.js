@@ -91,7 +91,7 @@ class Register extends Component {
             getUsers().then(data => {
                 // console.log(data);
 
-                var destination = data.map(element => {
+                const destination = data.map(element => {
                     if (element.email === this.state.email) {
                         // console.log('foundmatch');
                         // console.log(element.email);

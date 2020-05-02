@@ -39,12 +39,16 @@ const mongoURI = "mongodb://localhost/landscapeapp";
 
 // Connect to MongoDB
 // mongoose.connect( mongoURI, {
-mongoose.connect( mongoURI || process.env.MONGODB_URI, {
+mongoose.connect( process.env.MONGODB_URI || mongoURI, {
   useNewUrlParser: true,
   useFindAndModify: false
 })
 .then(() => console.log("MongoDB successfully connected"))
 .catch(err => console.log(err));
+
+app.get(function(req, res) {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
 
 // Passport middleware
 app.use(passport.initialize());

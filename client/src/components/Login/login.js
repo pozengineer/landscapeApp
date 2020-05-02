@@ -15,39 +15,6 @@ class Login extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
-    handleValidation() {
-        let errors = {};
-        let formIsValid = true;
-        // email
-        const inputEmail = this.state.email;
-        // const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/
-        const emailRegex = /^\w+([\.-]?\w+)*@[a-z]+([\.-]?[a-z]+)*(\.[a-z]{2,4})+$/;
-        const emailResult = emailRegex.test(inputEmail);
-        if (!this.state.email) {
-            formIsValid = false;
-            errors["email"] = "Cannot be empty";
-        }
-        else if (!emailResult) {
-            formIsValid = false;
-            errors["email"] = "Email is not valid";
-        }
-        else { }
-
-        // password
-        if (!this.state.password) {
-            formIsValid = false;
-            errors["password"] = "Cannot be empty";
-        }
-        else if (this.state.password.length < 6) {
-            formIsValid = false;
-            errors["password"] = "Password must be at least 6 characters";
-        }
-        else { }
-
-        this.setState({ errors: errors });
-        return formIsValid;
-    }
-
     onChange(e) {
         this.setState({ [e.target.name]: e.target.value });
     }
@@ -62,7 +29,7 @@ class Login extends Component {
         getUsers().then(data => {
             // console.log(data);
 
-            var validEmail = data.map(element => {
+            const validEmail = data.map(element => {
                 if (element.email === this.state.email) {
                     // console.log('foundMatch');
                     // console.log(element.email);
