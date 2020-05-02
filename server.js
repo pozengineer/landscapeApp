@@ -38,7 +38,8 @@ app.use(express.static("public"));
 const mongoURI = "mongodb://localhost/landscapeapp";
 
 // Connect to MongoDB
-mongoose.connect( process.env.MONGODB_URI || mongoURI, {
+// mongoose.connect( mongoURI, {
+mongoose.connect( mongoURI || process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useFindAndModify: false
 })
