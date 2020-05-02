@@ -10,6 +10,7 @@
     "@zendeskgarden/react-dropdowns": "^8.5.0",
     "@zendeskgarden/react-theming": "^8.5.0",
     "axios": "^0.19.2",
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^4.4.1",
     "classnames": "^2.2.6",
     "jwt-decode": "^2.2.0",
@@ -47,5 +48,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:5001"
 }

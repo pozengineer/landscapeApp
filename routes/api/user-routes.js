@@ -76,7 +76,7 @@ router.post('/api/login', (req, res) => {
                     res.send(token)
                 }
                 else {
-                    res.status(400).json({ error: "User does not exist" });
+                    res.status(400).json({ error: "Incorrect Password" });
                 }
             }
             else {

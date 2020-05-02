@@ -68,24 +68,23 @@ function ShapeSelect() {
     //     }
     // }
     return (
-        <div className='App'>
-            <header className='App-header'>
-                <Container>
-                    <Row>
-                        <Col sm={12} md={12}>
-                            <Dropdown>
-                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                    Select Shape
+        <div>
+            <Container>
+                <Row>
+                    <Col sm={12} md={12}>
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                Select Shape
                                 </Dropdown.Toggle>
 
-                                <Dropdown.Menu>
-                                    <Dropdown.Item href="squareCalc">Square</Dropdown.Item>
-                                    <Dropdown.Item href="circleCalc">Circle</Dropdown.Item>
-                                    <Dropdown.Item href="semiCircleCalc">Semi-Circle</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </Col>
-                        {/* <Col sm={12} md={12}>
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="squareCalc">Square</Dropdown.Item>
+                                <Dropdown.Item href="circleCalc">Circle</Dropdown.Item>
+                                <Dropdown.Item href="semiCircleCalc">Semi-Circle</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Col>
+                    {/* <Col sm={12} md={12}>
                             <ThemeProvider>
                                 <Dropdown onSelect={handleInputChange}>
                                     <Trigger>
@@ -99,17 +98,16 @@ function ShapeSelect() {
                                 </Dropdown>
                             </ThemeProvider>
                         </Col> */}
-                    </Row>
-                    <Row>
-                        <Col xs={12} sm={12} md={6} lg={6}>
-                            <ThreeD geometry={circleGeometry} className='threeCanvasDim' />
-                        </Col>
-                        <Col xs={12} sm={12} md={6} lg={6}>
-                            <ThreeD geometry={semiCircleGeometry} />
-                        </Col>
-                    </Row>
-                </Container>
-            </header>
+                </Row>
+                <Row>
+                    <Col xs={12} sm={12} md={6} lg={6}>
+                        <ThreeD geometry={circleGeometry} className='threeCanvasDim' />
+                    </Col>
+                    <Col xs={12} sm={12} md={6} lg={6}>
+                        <ThreeD geometry={semiCircleGeometry} />
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
 }

@@ -16,7 +16,7 @@ class ThreeD extends Component {
             var scene = new THREE.Scene();
             // const canvas = document.querySelector('.c');
             var camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.1, 1000);
-            var renderer = new THREE.WebGLRenderer();
+            var renderer = new THREE.WebGLRenderer({ alpha: true});
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(window.innerWidth, window.innerHeight, false);
             // document.body.appendChild( renderer.domElement );
@@ -78,7 +78,7 @@ class ThreeD extends Component {
                 requestAnimationFrame(animate);
                 // resizeCanvasToDisplaySize();
                 threeDimObject.rotation.x += 0.00;
-                threeDimObject.rotation.y += 0.01;
+                threeDimObject.rotation.y += 0.02;
                 renderer.render(scene, camera);
             };
             animate();

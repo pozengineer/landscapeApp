@@ -267,7 +267,7 @@ hr {
 }
 
 .btn {
-    width: 100px;
+    /* width: 100%; */
     display: block;
     --hue: var(--hue-neutral);
     /* background-color: hsl(var(--hue), 100%, 50%); */
@@ -278,6 +278,7 @@ hr {
     border-radius: 5px;
     outline: none;
     padding: 0;
+    margin: 15px 0px
 }
 
 .savedCityBtn {
