@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { loginUser, getUsers } from '../UserFunctions/userFunctions';
 // const bcrypt = require('bcryptjs');
-import bcrypt from 'bcryptjs';
+// import bcrypt from 'bcryptjs';
 
 class Login extends Component {
     constructor() {
@@ -60,12 +60,12 @@ class Login extends Component {
             password: this.state.password
         }
         getUsers().then(data => {
-            console.log(data);
+            // console.log(data);
 
             var validEmail = data.map(element => {
                 if (element.email === this.state.email) {
-                    console.log('foundMatch');
-                    console.log(element.email);
+                    // console.log('foundMatch');
+                    // console.log(element.email);
                     return true;
                 }
             }).filter(item => { return item; })[0];

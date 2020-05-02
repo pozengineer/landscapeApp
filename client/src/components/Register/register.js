@@ -89,12 +89,12 @@ class Register extends Component {
         console.log(result);
         if (this.handleValidation()) {
             getUsers().then(data => {
-                console.log(data);
+                // console.log(data);
 
                 var destination = data.map(element => {
                     if (element.email === this.state.email) {
-                        console.log('foundmatch');
-                        console.log(element.email)
+                        // console.log('foundmatch');
+                        // console.log(element.email);
                         return true;
                     }
                 }).filter(item => { return item; })[0];
