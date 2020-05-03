@@ -1,19 +1,70 @@
 import React from "react";
 import "./style.css";
-import { Dropdown } from 'react-bootstrap';
-import { Container, Row, Col } from 'react-bootstrap';
+// import { Dropdown } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+// import { Container } from '../../Grid';
 // import GameLoop from './components/three.js';
 // import { ThemeProvider } from '@zendeskgarden/react-theming';
 // import { Dropdown, Menu, Item, Trigger } from '@zendeskgarden/react-dropdowns';
 import * as THREE from "three";
-import ThreeD from '../../ThreeD/threeD';
+import TwoD from '../../ThreeD/twoD';
 // import { Canvas } from "react-three-fiber";
 
 function ShapeSelect() {
     let geometry;
 
+    const squareGeometry = element => {
+
+        let length = 3;
+        let width = 3;
+
+        const triShape = new THREE.Shape();
+        triShape.moveTo(0, 0);
+        triShape.lineTo(0, width);
+        triShape.lineTo(width, length);
+        triShape.lineTo(length, 0);
+        triShape.lineTo(0, 0);
+
+        let extrudeSettings = {
+            steps: 2,
+            depth: 0,
+            bevelEnabled: false,
+            bevelThickness: 1,
+            bevelSize: 1,
+            bevelOffset: 0,
+            bevelSegments: 1
+        };
+        geometry = new THREE.ExtrudeGeometry(triShape, extrudeSettings);
+        return geometry;
+    }
+
+    const triangleGeometry = element => {
+
+        let length = 5;
+        let width = 3;
+
+            var triShape = new THREE.Shape();
+            triShape.moveTo(0, 0);
+            triShape.lineTo(length / 2, width);
+            triShape.lineTo(length, 0);
+            // triShape.lineTo(length, 0);
+            triShape.lineTo(0, 0);
+
+        let extrudeSettings = {
+            steps: 2,
+            depth: 0,
+            bevelEnabled: false,
+            bevelThickness: 1,
+            bevelSize: 1,
+            bevelOffset: 0,
+            bevelSegments: 1
+        };
+        geometry = new THREE.ExtrudeGeometry(triShape, extrudeSettings);
+        return geometry;
+    }
+
     const circleGeometry = element => {
-        geometry = new THREE.CircleGeometry(3, 32);
+        geometry = new THREE.CircleGeometry(2, 32);
         return geometry;
     }
 
@@ -52,63 +103,32 @@ function ShapeSelect() {
         return geometry;
     }
 
-    // const handleInputChange = value => {
-    //     console.log(`Selected: ${value}`);
-    //     if (value === 'square') {
-    //         console.log('heavy hitter!');
-    //         shapeSelect = new THREE.BoxGeometry(3, 3, 3);
-    //     }
-    //     else if (value === 'circle') {
-    //         console.log('planting!');
-    //         shapeSelect = new THREE.CylinderGeometry(2, 2, 3, 20);
-    //     }
-    //     else {
-    //         console.log('cement mixing!');
-    //         shapeSelect = new THREE.TorusKnotGeometry(1.5, 0.5, 100, 8);
-    //     }
-    // }
     return (
-        <div>
-            <Container>
-                <Row>
-                    <Col sm={12} md={12}>
-                        <Dropdown>
-                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                Select Shape
-                                </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                                <Dropdown.Item href="squareCalc">Square</Dropdown.Item>
-                                <Dropdown.Item href="circleCalc">Circle</Dropdown.Item>
-                                <Dropdown.Item href="semiCircleCalc">Semi-Circle</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Col>
-                    {/* <Col sm={12} md={12}>
-                            <ThemeProvider>
-                                <Dropdown onSelect={handleInputChange}>
-                                    <Trigger>
-                                        <button>Select Shape</button>
-                                    </Trigger>
-                                    <Menu placement="end" arrow>
-                                        <Item value="square">Square</Item>
-                                        <Item value="circle">Circle</Item>
-                                        <Item value="semi-circle">Semi-Circle</Item>
-                                    </Menu>
-                                </Dropdown>
-                            </ThemeProvider>
-                        </Col> */}
-                </Row>
-                <Row>
-                    <Col xs={12} sm={12} md={6} lg={6}>
-                        <ThreeD geometry={circleGeometry} className='threeCanvasDim' />
-                    </Col>
-                    <Col xs={12} sm={12} md={6} lg={6}>
-                        <ThreeD geometry={semiCircleGeometry} />
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+        <Container className='container'>
+            <Row>
+                <Col sm={12} md={12}>
+                    <h2>Select Shape of Planter Box</h2>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={12} sm={6} md={6} lg={6} className='threeCanvasDim'>
+                    <TwoD geometry={squareGeometry} />
+                    <Button href="squareCalc">Square</Button>
+                </Col>
+                <Col xs={12} sm={6} md={6} lg={6} className='threeCanvasDim'>
+                    <TwoD geometry={circleGeometry} />
+                    <Button href="circleCalc">Circle</Button>
+                </Col>
+                <Col xs={12} sm={6} md={6} lg={6} className='threeCanvasDim'>
+                    <TwoD geometry={semiCircleGeometry} />
+                    <Button href="semiCircleCalc">Semi-Circle</Button>
+                </Col>
+                <Col xs={12} sm={6} md={6} lg={6} className='threeCanvasDim'>
+                    <TwoD geometry={triangleGeometry} />
+                    <Button href="triangle">Triangle</Button>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 

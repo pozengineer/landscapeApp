@@ -1,31 +1,224 @@
-import React from "react";
+import React, { Component, useState } from "react";
 // import "./style.css";
 // import GameLoop from './components/three.js';
 import * as THREE from "three";
 import ThreeD from '../../ThreeD/threeD';
 import { Container, Row, Col } from 'react-bootstrap';
+import { ThemeProvider } from '@zendeskgarden/react-theming';
+import { Dropdown, Menu, Item, Trigger } from '@zendeskgarden/react-dropdowns';
+import { getUsers } from '../../UserFunctions/userFunctions';
+// import { Select } from "react-dropdown-select";
+import Select from "react-select";
 
-function SquareCalc() {
-    let geometry;
-    
-    const square = element => {
+class SquareCalc extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            value: '',
+            plantar_name: '',
+            length: '',
+            width: '',
+            height: '',
+            errors: {},
+            geometry: '',
+            userArray: [],
+            selectValue: ''
+        }
+
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onSelectChanged = this.onSelectChanged.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    square = element => {
+        let geometry;
         geometry = new THREE.BoxGeometry(3, 3, 3);
         return geometry;
     }
-    
-    return (
-        <div className="App">
-            <header className="App-header">
+
+    handleInputChange = value => {
+        console.log(`Selected: ${value}`);
+        this.setState({
+            selectValue: value
+        });
+        console.log('Selected: ' + this.state.material);
+        if (value === 'pebble') {
+            console.log('heavy hitter!');
+        }
+        else if (value === 'gardenMix') {
+            console.log('planting!');
+        }
+        else {
+            console.log('cement mixing!');
+        }
+    }
+
+    handleChange(event) {
+        this.setState({ selectValue: event.target.value });
+        console.log(this.state.selectValue);
+    }
+
+    onChange(event) {
+        this.setState({ [event.target.name]: event.target.value });
+    }
+
+    onSelectChanged(value) {
+        this.setState({
+            selectValue: value
+        });
+        console.log(this.state.brandSelect);
+    }
+
+    onSubmit(event) {
+        let errors = {};
+        event.preventDefault();
+        const userData = {
+            first_name: this.state.first_name,
+            last_name: this.state.last_name,
+            email: this.state.email,
+            password: this.state.password
+        }
+    }
+
+    componentDidMount() {
+        getUsers()
+            .then(data => {
+                const userArray = data;
+                this.setState({ userArray });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    render() {
+        const { userArray } = this.state;
+
+        let userList = userArray.length > 0
+            && userArray.sort().map((item, i) => {
+                return (
+                    <option key={i} name="brandSelect" value={item.email}>{item.email}</option>
+                )
+            }, this);
+
+        var options = [{
+            value: 'Volkswagen',
+            label: 'Volkswagen'
+        }, {
+            value: 'Seat',
+            label: 'Seat'
+        }];
+
+        return (
+            <div>
                 <Container>
                     <Row>
-                        <Col sm={12} md={6}>
-                            <ThreeD geometry={ square } />
+                        <Col>
+                            <h2>Dimensions of Planter Box</h2>
                         </Col>
                     </Row>
+                    <Row>
+                        <Col sm={12} md={{ span: 8, offset: 2 }}>
+                            <ThreeD geometry={this.square} />
+                        </Col>
+                        <Col sm={12} md={12}>
+                            <ThemeProvider>
+                                <Dropdown onSelect={this.handleInputChange}>
+                                    <Trigger>
+                                        <button>Select Material</button>
+                                    </Trigger>
+                                    <Menu placement="end" arrow>
+                                        {userList}
+                                    </Menu>
+                                </Dropdown>
+                            </ThemeProvider>
+                        </Col>
+                        <Col md={4}>
+                            <Select
+                                name="form-field-name"
+                                value={this.state.brandSelect}
+                                options={options}
+                                placeholder="Select a brand"
+                                searchable={false}
+                                onChange={this.onSelectChanged.bind(this)}
+                            />
+                        </Col>
+                        <Col md={12}>
+                            <div>
+                                <select
+                                    value={this.state.selectValue}
+                                    onChange={this.handleChange}
+                                >
+                                    {userList}
+                                </select>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <div className='col-md-6 mt-5 mx-auto'>
+                            <form noValidate onSubmit={this.onSubmit}>
+                                <h1 className='h3 mb-3 font-weight normal'>Dimension input</h1>
+                                <div className='form-group'>
+                                    <label htmlFor='plantar_name'>Plantar Name</label>
+                                    <input type='text'
+                                        refs='plantar_name'
+                                        className='form-control'
+                                        name='plantar_name'
+                                        placeholder='Enter Plantar Name'
+                                        value={this.state.plantar_name}
+                                        onChange={this.onChange}
+                                    />
+                                    <span style={{ color: "red" }}>{this.state.errors["plantar_name"]}</span>
+                                </div>
+                                <div className='form-group'>
+                                    <label htmlFor='length'>Length in meters</label>
+                                    <input type='number'
+                                        refs='length'
+                                        className='form-control'
+                                        name='length'
+                                        placeholder='Enter Length'
+                                        value={this.state.width}
+                                        onChange={this.onChange}
+                                    />
+                                    <span style={{ color: "red" }}>{this.state.errors["length"]}</span>
+                                </div>
+                                <div className='form-group'>
+                                    <label htmlFor='width'>Width in meters</label>
+                                    <input type='number'
+                                        refs='width'
+                                        className='form-control'
+                                        name='width'
+                                        placeholder='Enter Width'
+                                        value={this.state.width}
+                                        onChange={this.onChange}
+                                    />
+                                    <span style={{ color: "red" }}>{this.state.errors["width"]}</span>
+                                </div>
+                                <div className='form-group'>
+                                    <label htmlFor='Height'>Height in meters</label>
+                                    <input type='number'
+                                        refs='height'
+                                        className='form-control'
+                                        name='height'
+                                        placeholder='Enter Height'
+                                        value={this.state.height}
+                                        onChange={this.onChange}
+                                    />
+                                    <span style={{ color: "red" }}>{this.state.errors["height"]}</span>
+                                </div>
+                                
+                                <button type='submit' className='btn btn-lg btn-primary btn-block'>
+                                    Submit
+                                </button>
+                            </form>
+                        </div>
+                    </Row>
                 </Container>
-            </header>
-        </div>
-    );
+            </div>
+        )
+    }
 }
 
 export default SquareCalc;

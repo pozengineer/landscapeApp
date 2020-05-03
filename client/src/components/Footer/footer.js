@@ -6,7 +6,6 @@ import "./style.css";
 function Footer() {
     return (
         <div>
-            <div className="push" />
             <div className="pageFooter">
                 <span className="text-white">Copyright &#169; 2020 POZ DRAFTING &#38; IT SOLUTIONS - All Rights Reserved</span>
                 <br />

@@ -4,6 +4,7 @@
     font-size: 14px;
     padding: 10px 0px;
     height: 100%;
+    margin-top: auto;
 }
 
 .text-white {
@@ -11,5 +12,5 @@
 }
 
 .push {
-    height: 100vh;
+    height: 50px;
 }

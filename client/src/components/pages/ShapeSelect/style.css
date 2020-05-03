@@ -25,13 +25,12 @@
   color: white;
 }
 
-.threeCanvasDim {
-  width: 150%;
-  height: 150%;
-}
-
 .App-link {
   color: #61dafb;
+}
+
+.threeCanvasDim {
+  margin: auto;
 }
 
 @keyframes App-logo-spin {
@@ -45,4 +44,13 @@
 
 #dropdown-basic {
   text-align: center !important;
+}
+
+.container {
+  margin: 0 auto !important;
+  /* padding: 0 !important; */
+} 
+
+h2 {
+  margin-bottom: 25px !important;
 }

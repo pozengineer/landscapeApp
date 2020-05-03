@@ -10,6 +10,11 @@
     --hue-correct: 145;
 }
 
+.App {
+    min-height: 100vh;
+    margin-bottom: -50px;
+}
+
 html, body {
     --hue: var(--hue-neutral);
     background-color: hsl(var(--hue), 100%, 20%);
@@ -272,7 +277,7 @@ hr {
     display: block;
     --hue: var(--hue-neutral);
     /* background-color: hsl(var(--hue), 100%, 50%); */
-    background-color: #212121;
+    background-color: #212121 !important;
     color: #ffffff;
     border: 1px solid hsl(var(--hue), 100%, 30%);
     border-color: #212121 !important;
