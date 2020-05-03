@@ -22,7 +22,12 @@ class SquareCalc extends Component {
             errors: {},
             geometry: '',
             userArray: [],
-            selectValue: ''
+            selectValue: '',
+            material: [],
+            volume: '',
+            chosenMaterial: '',
+            reqTonne: '',
+            reqCost: '',
         }
 
         this.onChange = this.onChange.bind(this);
@@ -82,16 +87,44 @@ class SquareCalc extends Component {
             height: this.state.height
         }
         console.log(userData);
+        let matName = this.material[0].material_name;
+        let matDensity = this.material[0].density;
+        let matCost = this.material[0].cost;
+        console.log(matName);
+        this.state.volume = userData.length * userData.width * userData.height;
+        this.state.reqTonne = this.state.volume * matDensity;
+        this.state.reqCost = this.state.reqTonne * matCost;
+        this.setState({
+            volume: this.state.volume,
+            reqTonne: this.state.reqTonne,
+            reqCost: this.state.reqCost
+        })
     }
+    
+    material = [
+        {
+            id: 1,
+            material_name: 'Road Base',
+            density: 1.75,
+            cost: 71
+        },
+        {
+            id: 2,
+            material_name: 'Nepean River Pebble',
+            density: 1.5,
+            cost: 125
+        }
+    ]
 
     onSubmit(event) {
         let errors = {};
         event.preventDefault();
         const userData = {
             planter_name: this.state.planter_name,
-            length: this.state.length,
-            width: this.state.width,
-            height: this.state.height
+            chosenMaterial: this.state.selectValue,
+            volume: this.state.volume,
+            reqTonne: this.state.reqTonne,
+            reqCost: this.state.reqCost
         }
         console.log(userData);
     }
@@ -124,6 +157,21 @@ class SquareCalc extends Component {
             value: 'Seat',
             label: 'Seat'
         }];
+
+        const material = [
+            {
+                id: 1,
+                material_name: 'Road Base',
+                density: 1.75,
+                cost: 71
+            },
+            {
+                id: 2,
+                material_name: 'Nepean River Pebble',
+                density: 1.5,
+                cost: 125
+            }
+        ]
 
         return (
             <div>
@@ -230,6 +278,29 @@ class SquareCalc extends Component {
                         </div>
                         <div className='col-md-6 mt-5'>
                             <form noValidate onSubmit={this.onSubmit}>
+                                <h1 className='h3 mb-3 font-weight normal'>Calculation</h1>
+                                <div className='form-group'>
+                                    <label htmlFor='planter_name'>Planter Name</label>
+                                    <input type='text'
+                                        refs='planter_name'
+                                        className='form-control'
+                                        name='planter_name'
+                                        placeholder=''
+                                        value={this.state.planter_name}
+                                        readOnly={true}
+                                    />
+                                </div>
+                                <div className='form-group'>
+                                    <label htmlFor='volume'>Volume</label>
+                                    <input type='text'
+                                        refs='volume'
+                                        className='form-control'
+                                        name='volume'
+                                        placeholder=''
+                                        value={this.state.volume}
+                                        readOnly={true}
+                                    />
+                                </div>
                                 <div className='form-group'>
                                     <label htmlFor='chosenMaterial'>Material Chosen</label>
                                     <input type='text'
@@ -237,10 +308,31 @@ class SquareCalc extends Component {
                                         className='form-control'
                                         name='chosenMaterial'
                                         placeholder=''
-                                        value={this.state.chosenMaterial}
+                                        value={this.state.selectValue}
                                         readOnly={true}
                                     />
-                                    <span style={{ color: "red" }}>{this.state.errors["height"]}</span>
+                                </div>
+                                <div className='form-group'>
+                                    <label htmlFor='reqTonne'>Required Tonne</label>
+                                    <input type='text'
+                                        refs='reqTonne'
+                                        className='form-control'
+                                        name='reqTonne'
+                                        placeholder=''
+                                        value={this.state.reqTonne}
+                                        readOnly={true}
+                                    />
+                                </div>
+                                <div className='form-group'>
+                                    <label htmlFor='reqCost'>Cost</label>
+                                    <input type='reqCost'
+                                        refs=''
+                                        className='form-control'
+                                        name='reqCost'
+                                        placeholder=''
+                                        value={this.state.reqCost}
+                                        readOnly={true}
+                                    />
                                 </div>
                                 <button type='submit' className='btn btn-lg btn-primary btn-block'>
                                     Submit
