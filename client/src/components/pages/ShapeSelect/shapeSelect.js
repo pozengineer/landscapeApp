@@ -103,6 +103,10 @@ function ShapeSelect() {
         return geometry;
     }
 
+    if(!localStorage.usertoken) {
+        return (<p>Not Authorized</p>)
+    }
+    
     return (
         <Container className='container'>
             <Row>

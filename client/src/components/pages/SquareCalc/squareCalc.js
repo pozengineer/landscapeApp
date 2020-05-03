@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 // import "./style.css";
 // import GameLoop from './components/three.js';
 import * as THREE from "three";
@@ -9,6 +9,7 @@ import { Dropdown, Menu, Item, Trigger } from '@zendeskgarden/react-dropdowns';
 import { getUsers } from '../../UserFunctions/userFunctions';
 // import { Select } from "react-dropdown-select";
 import Select from "react-select";
+// import { Redirect } from 'react-router-dom';
 
 class SquareCalc extends Component {
     constructor(props) {
@@ -91,13 +92,13 @@ class SquareCalc extends Component {
         let matDensity = this.material[0].density;
         let matCost = this.material[0].cost;
         console.log(matName);
-        this.state.volume = userData.length * userData.width * userData.height;
-        this.state.reqTonne = this.state.volume * matDensity;
-        this.state.reqCost = this.state.reqTonne * matCost;
+        let volume = userData.length * userData.width * userData.height;
+        let reqTonne = volume * matDensity;
+        let reqCost = reqTonne * matCost;
         this.setState({
-            volume: this.state.volume,
-            reqTonne: this.state.reqTonne,
-            reqCost: this.state.reqCost
+            volume: volume,
+            reqTonne: reqTonne,
+            reqCost: reqCost
         })
     }
     
@@ -158,20 +159,9 @@ class SquareCalc extends Component {
             label: 'Seat'
         }];
 
-        const material = [
-            {
-                id: 1,
-                material_name: 'Road Base',
-                density: 1.75,
-                cost: 71
-            },
-            {
-                id: 2,
-                material_name: 'Nepean River Pebble',
-                density: 1.5,
-                cost: 125
-            }
-        ]
+        if(!localStorage.usertoken){
+            return (<p>Not Authorized</p>)
+        }
 
         return (
             <div>
@@ -326,7 +316,7 @@ class SquareCalc extends Component {
                                 <div className='form-group'>
                                     <label htmlFor='reqCost'>Cost</label>
                                     <input type='reqCost'
-                                        refs=''
+                                        refs='reqCost'
                                         className='form-control'
                                         name='reqCost'
                                         placeholder=''

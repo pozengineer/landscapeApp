@@ -15,6 +15,7 @@ class Profile extends Component {
 
     componentDidMount() {
         const token = localStorage.usertoken;
+        if(!token) {return};
         const decoded = jwt_decode(token);
         this.setState({
             first_name: decoded.first_name,
@@ -24,6 +25,10 @@ class Profile extends Component {
     }
 
     render() {
+        if(!localStorage.usertoken){
+            return <p>Not authorized</p>
+        }
+
         return (
             <div className='container'>
                 <div className='jumbotron mt-5'>
