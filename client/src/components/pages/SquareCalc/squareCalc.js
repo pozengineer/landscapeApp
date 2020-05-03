@@ -15,7 +15,7 @@ class SquareCalc extends Component {
         super(props)
         this.state = {
             value: '',
-            plantar_name: '',
+            planter_name: '',
             length: '',
             width: '',
             height: '',
@@ -26,6 +26,7 @@ class SquareCalc extends Component {
         }
 
         this.onChange = this.onChange.bind(this);
+        this.onCalculate = this.onCalculate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onSelectChanged = this.onSelectChanged.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -71,15 +72,28 @@ class SquareCalc extends Component {
         console.log(this.state.brandSelect);
     }
 
+    onCalculate(event) {
+        let errors = {};
+        event.preventDefault();
+        const userData = {
+            planter_name: this.state.planter_name,
+            length: this.state.length,
+            width: this.state.width,
+            height: this.state.height
+        }
+        console.log(userData);
+    }
+
     onSubmit(event) {
         let errors = {};
         event.preventDefault();
         const userData = {
-            first_name: this.state.first_name,
-            last_name: this.state.last_name,
-            email: this.state.email,
-            password: this.state.password
+            planter_name: this.state.planter_name,
+            length: this.state.length,
+            width: this.state.width,
+            height: this.state.height
         }
+        console.log(userData);
     }
 
     componentDidMount() {
@@ -157,20 +171,20 @@ class SquareCalc extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <div className='col-md-6 mt-5 mx-auto'>
-                            <form noValidate onSubmit={this.onSubmit}>
+                        <div className='col-md-6 mt-5'>
+                            <form noValidate onSubmit={this.onCalculate}>
                                 <h1 className='h3 mb-3 font-weight normal'>Parameter Input</h1>
                                 <div className='form-group'>
-                                    <label htmlFor='plantar_name'>Plantar Name</label>
+                                    <label htmlFor='planter_name'>Plantar Name</label>
                                     <input type='text'
-                                        refs='plantar_name'
+                                        refs='planter_name'
                                         className='form-control'
-                                        name='plantar_name'
-                                        placeholder='Enter Plantar Name'
-                                        value={this.state.plantar_name}
+                                        name='planter_name'
+                                        placeholder='Enter Planter Name'
+                                        value={this.state.planter_name}
                                         onChange={this.onChange}
                                     />
-                                    <span style={{ color: "red" }}>{this.state.errors["plantar_name"]}</span>
+                                    <span style={{ color: "red" }}>{this.state.errors["planter_name"]}</span>
                                 </div>
                                 <div className='form-group'>
                                     <label htmlFor='length'>Length in meters</label>
@@ -208,7 +222,26 @@ class SquareCalc extends Component {
                                     />
                                     <span style={{ color: "red" }}>{this.state.errors["height"]}</span>
                                 </div>
-                                
+
+                                <button type='submit' className='btn btn-lg btn-primary btn-block'>
+                                    Calculate
+                                </button>
+                            </form>
+                        </div>
+                        <div className='col-md-6 mt-5'>
+                            <form noValidate onSubmit={this.onSubmit}>
+                                <div className='form-group'>
+                                    <label htmlFor='chosenMaterial'>Material Chosen</label>
+                                    <input type='text'
+                                        refs='chosenMaterial'
+                                        className='form-control'
+                                        name='chosenMaterial'
+                                        placeholder=''
+                                        value={this.state.chosenMaterial}
+                                        readOnly={true}
+                                    />
+                                    <span style={{ color: "red" }}>{this.state.errors["height"]}</span>
+                                </div>
                                 <button type='submit' className='btn btn-lg btn-primary btn-block'>
                                     Submit
                                 </button>
