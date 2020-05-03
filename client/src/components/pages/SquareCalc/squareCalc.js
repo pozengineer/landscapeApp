@@ -159,7 +159,7 @@ class SquareCalc extends Component {
                     <Row>
                         <div className='col-md-6 mt-5 mx-auto'>
                             <form noValidate onSubmit={this.onSubmit}>
-                                <h1 className='h3 mb-3 font-weight normal'>Dimension input</h1>
+                                <h1 className='h3 mb-3 font-weight normal'>Parameter Input</h1>
                                 <div className='form-group'>
                                     <label htmlFor='plantar_name'>Plantar Name</label>
                                     <input type='text'
@@ -179,7 +179,7 @@ class SquareCalc extends Component {
                                         className='form-control'
                                         name='length'
                                         placeholder='Enter Length'
-                                        value={this.state.width}
+                                        value={this.state.length}
                                         onChange={this.onChange}
                                     />
                                     <span style={{ color: "red" }}>{this.state.errors["length"]}</span>
