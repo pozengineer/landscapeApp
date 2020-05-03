@@ -278,7 +278,7 @@ hr {
     --hue: var(--hue-neutral);
     /* background-color: hsl(var(--hue), 100%, 50%); */
     background-color: #212121 !important;
-    color: #ffffff;
+    color: #ffffff !important;
     border: 1px solid hsl(var(--hue), 100%, 30%);
     border-color: #212121 !important;
     border-radius: 5px;
@@ -311,8 +311,8 @@ hr {
 
 .btn:hover {
     background-color: #ffffff;
-    border-color: #212121;
-    color: #212121;
+    border-color: #ffffff;
+    color: #ffffff !important;
 }
 
 .btn.correct {
