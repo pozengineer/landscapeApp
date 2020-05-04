@@ -74,9 +74,8 @@ class SquareCalc extends Component {
 
     onSelectChanged(value) {
         this.setState({
-            selectValue: value
+            selectValue: value.value
         });
-        console.log(this.state.brandSelect);
     }
 
     onCalculate(event) {
@@ -143,13 +142,12 @@ class SquareCalc extends Component {
                 )
             }, this);
 
-        var options = [{
-            value: 'Volkswagen',
-            label: 'Volkswagen'
-        }, {
-            value: 'Seat',
-            label: 'Seat'
-        }];
+        var options = materialArray && materialArray.map(element => {
+            return {
+                value: element.material_name,
+                label: element.material_name
+            }
+        })
 
         if (!localStorage.usertoken) {
             return (<p>Not Authorized</p>)
@@ -180,14 +178,14 @@ class SquareCalc extends Component {
                             </ThemeProvider>
                         </Col>
                         <Col md={4}>
-                            <Select
+                            {options && <Select
                                 name="form-field-name"
-                                value={this.state.brandSelect}
+                                value={this.state.selectValue}
                                 options={options}
-                                placeholder="Select a brand"
+                                placeholder="Select a Material"
                                 searchable={false}
-                                onChange={this.onSelectChanged.bind(this)}
-                            />
+                                onChange={this.onSelectChanged}
+                            />}
                         </Col>
                         <Col md={12}>
                             <div>
