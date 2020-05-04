@@ -25,6 +25,7 @@ if (process.env.NODE_ENV === "production") {
 // Bodyparser middleware
 app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.json());
 app.use(
     bodyParser.urlencoded({
         extended: false

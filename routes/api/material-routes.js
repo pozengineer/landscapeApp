@@ -29,7 +29,7 @@ router.post('/api/addMaterial', (req, res) => {
     })
     .then( response => {
         if (response) {
-            res.status(400).json({ email: "Material already exists" });
+            res.status(400).json({ material_name: "Material already exists" });
             return res.send("Material already exists");
         }
         else {
