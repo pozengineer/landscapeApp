@@ -41,7 +41,7 @@ router.post('/api/addMaterial', (req, res) => {
                 created: today
             }
             
-            Material.create(userData)
+            Material.create(materialData)
             .then(user => {
                 res.json(user);
             })
