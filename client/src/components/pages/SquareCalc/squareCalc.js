@@ -5,8 +5,8 @@ import * as THREE from "three";
 import ThreeD from '../../ThreeD/threeD';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ThemeProvider } from '@zendeskgarden/react-theming';
-import { Dropdown, Menu, Item, Trigger } from '@zendeskgarden/react-dropdowns';
-import { getUsers } from '../../UserFunctions/userFunctions';
+import { Dropdown, Menu, Trigger } from '@zendeskgarden/react-dropdowns';
+import { getMaterials } from '../../UserFunctions/userFunctions';
 // import { Select } from "react-dropdown-select";
 import Select from "react-select";
 // import { Redirect } from 'react-router-dom';
@@ -22,13 +22,14 @@ class SquareCalc extends Component {
             height: '',
             errors: {},
             geometry: '',
-            userArray: [],
+            materialArray: [],
             selectValue: '',
             material: [],
             volume: '',
             chosenMaterial: '',
             reqTonne: '',
             reqCost: '',
+            brandSelect: ''
         }
 
         this.onChange = this.onChange.bind(this);
@@ -83,39 +84,30 @@ class SquareCalc extends Component {
         event.preventDefault();
         const userData = {
             planter_name: this.state.planter_name,
+            chosenMaterial: this.state.selectValue,
             length: this.state.length,
             width: this.state.width,
             height: this.state.height
         }
-        console.log(userData);
-        let matName = this.material[0].material_name;
-        let matDensity = this.material[0].density;
-        let matCost = this.material[0].cost;
-        console.log(matName);
-        let volume = userData.length * userData.width * userData.height;
-        let reqTonne = volume * matDensity;
-        let reqCost = reqTonne * matCost;
-        this.setState({
-            volume: volume,
-            reqTonne: reqTonne,
-            reqCost: reqCost
+        console.log(userData.chosenMaterial);
+        console.log(this.state.materialArray);
+        this.state.materialArray.forEach(element => {
+            if (element.material_name === this.state.selectValue) {
+                const matchMaterial = element
+                console.log(matchMaterial);
+                let materialDensity = matchMaterial.density;
+                let materialCost = matchMaterial.cost;
+                let volume = userData.length * userData.width * userData.height;
+                let reqTonne = volume * materialDensity;
+                let reqCost = reqTonne * materialCost;
+                this.setState({
+                    volume: volume,
+                    reqTonne: reqTonne,
+                    reqCost: reqCost
+                })
+            }
         })
     }
-    
-    material = [
-        {
-            id: 1,
-            material_name: 'Road Base',
-            density: 1.75,
-            cost: 71
-        },
-        {
-            id: 2,
-            material_name: 'Nepean River Pebble',
-            density: 1.5,
-            cost: 125
-        }
-    ]
 
     onSubmit(event) {
         let errors = {};
@@ -131,10 +123,10 @@ class SquareCalc extends Component {
     }
 
     componentDidMount() {
-        getUsers()
+        getMaterials()
             .then(data => {
-                const userArray = data;
-                this.setState({ userArray });
+                const materialArray = data;
+                this.setState({ materialArray });
             })
             .catch(error => {
                 console.log(error);
@@ -142,12 +134,12 @@ class SquareCalc extends Component {
     }
 
     render() {
-        const { userArray } = this.state;
+        const { materialArray } = this.state;
 
-        let userList = userArray.length > 0
-            && userArray.sort().map((item, i) => {
+        let materialList = materialArray.length > 0
+            && materialArray.sort().map((item, i) => {
                 return (
-                    <option key={i} name="brandSelect" value={item.email}>{item.email}</option>
+                    <option key={i} name="material" value={item.material_name}>{item.material_name}</option>
                 )
             }, this);
 
@@ -159,7 +151,7 @@ class SquareCalc extends Component {
             label: 'Seat'
         }];
 
-        if(!localStorage.usertoken){
+        if (!localStorage.usertoken) {
             return (<p>Not Authorized</p>)
         }
 
@@ -182,7 +174,7 @@ class SquareCalc extends Component {
                                         <button>Select Material</button>
                                     </Trigger>
                                     <Menu placement="end" arrow>
-                                        {userList}
+                                        {materialList}
                                     </Menu>
                                 </Dropdown>
                             </ThemeProvider>
@@ -203,7 +195,7 @@ class SquareCalc extends Component {
                                     value={this.state.selectValue}
                                     onChange={this.handleChange}
                                 >
-                                    {userList}
+                                    {materialList}
                                 </select>
                             </div>
                         </Col>

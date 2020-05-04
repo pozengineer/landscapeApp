@@ -49,3 +49,17 @@ export const getUsers = userData => {
         console.log(err);
     })
 }
+
+export const getMaterials = materialData => {
+    return axios
+    .get('/api/displaymaterials', {
+    })
+    .then(response => {
+        // console.log(response.data);
+        // console.log(userData);  
+        return response.data
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}
