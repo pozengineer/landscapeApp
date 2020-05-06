@@ -70,16 +70,31 @@ router.get('/api/displayprojects', (req, res) => {
         })
 })
 
-// Matches with "/api/books"
-router.route("/")
-  .get(projectsController.findAll)
-  .post(projectsController.create);
+router.delete('/api/deleteproject/:id', (req, res) => {
+    Project.remove()
+        .then(response => {
+            if (response) {
+                res.json(response)
+            }
+            else {
+                res.status(400).json({ error: "Projects do not exist" });
+            }
+        })
+        .catch(err => {
+            res.send('error: ' + err);
+        })
+})
 
 // Matches with "/api/books/:id"
 router
-  .route("/:id")
+  .route("/api/projects/:id")
   .get(projectsController.findById)
   .put(projectsController.update)
   .delete(projectsController.remove);
+
+// Matches with "/api/books"
+router.route("/api/projects")
+  .get(projectsController.findAll)
+  .post(projectsController.create);
 
 module.exports = router;

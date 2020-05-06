@@ -35,13 +35,13 @@ function Projects() {
 
     return (
         <Container fluid>
+            <Jumbotron>
+                <h1>Projects On My List</h1>
+            </Jumbotron>
             <Row>
-                <Col size="md-12 sm-12">
-                    <Jumbotron>
-                        <h1>Projects On My List</h1>
-                    </Jumbotron>
+                <Col size="md-4 sm-12">
                     {projects && projects.length ? (
-                        <List>
+                        <div>
                             {projects.map(project => {
                                 return (
                                     <ListItem key={project._id}>
@@ -54,7 +54,7 @@ function Projects() {
                                     </ListItem>
                                 );
                             })}
-                        </List>
+                        </div>
                     ) : (
                             <h3>No Results to Display</h3>
                         )}
@@ -63,6 +63,5 @@ function Projects() {
         </Container>
     );
 }
-
 
 export default Projects;
