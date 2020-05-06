@@ -5,6 +5,7 @@ const cors = require('cors');
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
 const passport = require("passport");
+const projectsController = require("../../controllers/projectsController");
 
 // Load input validation
 // const validateRegisterInput = require("../../validation/register");
@@ -68,5 +69,17 @@ router.get('/api/displayprojects', (req, res) => {
             res.send('error: ' + err);
         })
 })
+
+// Matches with "/api/books"
+router.route("/")
+  .get(projectsController.findAll)
+  .post(projectsController.create);
+
+// Matches with "/api/books/:id"
+router
+  .route("/:id")
+  .get(projectsController.findById)
+  .put(projectsController.update)
+  .delete(projectsController.remove);
 
 module.exports = router;

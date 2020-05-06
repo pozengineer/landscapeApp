@@ -16,6 +16,7 @@ import CircleCalc from './components/pages/CircleCalc/circleCalc';
 import SemiCircleCalc from './components/pages/SemiCircleCalc/semiCircleCalc';
 import Footer from './components/Footer/footer';
 import PushDiv from './components/Footer/pushDiv';
+import Projects from './components/Projects/projects';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -35,6 +36,7 @@ class App extends Component {
                             <Route exact path="/squareCalc" component={SquareCalc} />
                             <Route exact path="/circleCalc" component={CircleCalc} />
                             <Route exact path="/semiCircleCalc" component={SemiCircleCalc} />
+                            <Route exact path="/projects" component={Projects} />
                         </div>
                         <PushDiv />
                     </div>

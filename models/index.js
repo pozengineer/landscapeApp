@@ -1,3 +1,4 @@
 module.exports = {
-    Material: require("./Material")
+    Material: require("./Material"),
+    Project: require("./Project")
   };
