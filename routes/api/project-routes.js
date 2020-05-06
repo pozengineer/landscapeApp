@@ -11,11 +11,11 @@ const passport = require("passport");
 // const validateLoginInput = require("../../validation/login");
 
 // Load User model
-const Material = require("../../models/Material");
+const Project = require("../../models/Project");
 router.use(cors())
 process.env.SECRET_KEY = 'secret';
 
-router.post('/api/addMaterial', (req, res) => {
+router.post('/api/addProject', (req, res) => {
     // Form validation
     // const { errors, isValid } = validateRegisterInput(req.body);
 
@@ -24,26 +24,28 @@ router.post('/api/addMaterial', (req, res) => {
     //     return res.status(400).json(errors);
     // }
 
-    Material.findOne({
-        material_name: req.body.material_name
+    Project.findOne({
+        planter_name: req.body.planter_name
     })
     .then( response => {
         if (response) {
-            res.status(400).json({ material_name: "Material already exists" });
-            return res.send("Material already exists");
+            res.status(400).json({ planter_name: "Planter already exists" });
+            return res.send("Planter already exists");
         }
         else {
             const today = new Date()
-            const materialData = {
-                material_name: req.body.material_name,
-                density: req.body.density,
-                cost: req.body.cost,
+            const projectData = {
+                planter_name: req.body.planter_name,
+                volume: req.body.volume,
+                chosenMaterial: req.body.chosenMaterial,
+                reqTonne: req.body.reqTonne,
+                reqCost: req.body.reqCost,
                 created: today
             }
             
-            Material.create(materialData)
-            .then(material => {
-                res.json(material);
+            Project.create(projectData)
+            .then(project => {
+                res.json(project);
             })
             .catch(err => {
                 console.log(err);
@@ -52,14 +54,14 @@ router.post('/api/addMaterial', (req, res) => {
     })
 })
 
-router.get('/api/displaymaterials', (req, res) => {
-    Material.find()
+router.get('/api/displayprojects', (req, res) => {
+    Project.find()
         .then(response => {
             if (response) {
                 res.json(response)
             }
             else {
-                res.status(400).json({ error: "Materials do not exist" });
+                res.status(400).json({ error: "Projectss do not exist" });
             }
         })
         .catch(err => {

@@ -63,3 +63,32 @@ export const getMaterials = materialData => {
         console.log(err);
     })
 }
+
+export const addProject = projectData => {
+    // console.log(userData);
+    return axios
+    .post('/api/addProject', {
+        planter_name: projectData.planter_name,
+        volume: projectData.volume,
+        chosenMaterial: projectData.chosenMaterial,
+        reqTonne: projectData.reqTonne,
+        reqCost: projectData.reqCost,
+    })
+    .then(res => {
+        console.log('Project Saved!');
+    })
+}
+
+export const getProjects = projectData => {
+    return axios
+    .get('/api/displayprojects', {
+    })
+    .then(response => {
+        // console.log(response.data);
+        // console.log(userData);  
+        return response.data
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}

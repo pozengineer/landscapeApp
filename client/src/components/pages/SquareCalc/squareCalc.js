@@ -6,7 +6,7 @@ import ThreeD from '../../ThreeD/threeD';
 import { Container, Row, Col } from 'react-bootstrap';
 import { ThemeProvider } from '@zendeskgarden/react-theming';
 import { Dropdown, Menu, Trigger } from '@zendeskgarden/react-dropdowns';
-import { getMaterials } from '../../UserFunctions/userFunctions';
+import { getMaterials, addProject } from '../../UserFunctions/userFunctions';
 // import { Select } from "react-dropdown-select";
 import Select from "react-select";
 // import { Redirect } from 'react-router-dom';
@@ -100,9 +100,9 @@ class SquareCalc extends Component {
                 let reqTonne = volume * materialDensity;
                 let reqCost = reqTonne * materialCost;
                 this.setState({
-                    volume: volume,
-                    reqTonne: reqTonne,
-                    reqCost: reqCost
+                    volume: volume.toFixed(2),
+                    reqTonne: reqTonne.toFixed(2),
+                    reqCost: reqCost.toFixed(2)
                 })
             }
         })
@@ -111,14 +111,18 @@ class SquareCalc extends Component {
     onSubmit(event) {
         let errors = {};
         event.preventDefault();
-        const userData = {
+        const projectData = {
             planter_name: this.state.planter_name,
             chosenMaterial: this.state.selectValue,
             volume: this.state.volume,
             reqTonne: this.state.reqTonne,
             reqCost: this.state.reqCost
         }
-        console.log(userData);
+        console.log(projectData);
+        addProject(projectData).then(res => {
+            // this.props.history.push('/login')
+        })
+        console.log("Project submitted");
     }
 
     componentDidMount() {
