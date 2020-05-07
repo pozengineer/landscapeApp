@@ -3,6 +3,7 @@ import React, { Component } from "react";
 // import GameLoop from './components/three.js';
 import * as THREE from "three";
 import ThreeD from '../../ThreeD/threeD';
+import { Link } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
 import { ThemeProvider } from '@zendeskgarden/react-theming';
 import { Dropdown, Menu, Trigger } from '@zendeskgarden/react-dropdowns';
@@ -120,7 +121,7 @@ class SquareCalc extends Component {
         }
         console.log(projectData);
         addProject(projectData).then(res => {
-            // this.props.history.push('/login')
+            this.props.history.push('/projects')
         })
         console.log("Project submitted");
     }
@@ -323,6 +324,11 @@ class SquareCalc extends Component {
                                 </button>
                             </form>
                         </div>
+                    </Row>
+                    <Row>
+                        <Col size="md-3">
+                            <Link to="/shapeSelect">← Back to Shapes</Link>
+                        </Col>
                     </Row>
                 </Container>
             </div>

@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Jumbotron from "../../components/Jumbotron";
-import DeleteBtn from "../../components/DeleteBtn";
 import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
+// import { List, ListItem } from "../../components/List";
 // import { Input, TextArea, FormBtn } from "../../components/Form";
+import { Link } from "react-router-dom";
 import { getProjects } from '../UserFunctions/userFunctions';
+import { ProjectCard } from './project';
 
 function Projects() {
     // Setting our component's initial state
@@ -33,31 +34,27 @@ function Projects() {
             .catch(err => console.log(err));
     }
 
+    if (!localStorage.usertoken) {
+        return (<p>Not Authorized</p>)
+    }
     return (
         <Container fluid>
             <Jumbotron>
                 <h1>Projects On My List</h1>
             </Jumbotron>
             <Row>
-                <Col size="md-4 sm-12">
-                    {projects && projects.length ? (
-                        <div>
-                            {projects.map(project => {
-                                return (
-                                    <ListItem key={project._id}>
-                                        <a href={"/projects/" + project._id}>
-                                            <strong>
-                                                {project.planter_name}
-                                            </strong>
-                                        </a>
-                                        <DeleteBtn onClick={() => deleteProject(project._id)} />
-                                    </ListItem>
-                                );
-                            })}
-                        </div>
-                    ) : (
-                            <h3>No Results to Display</h3>
-                        )}
+                {projects && projects.length &&
+                    projects.map(project => {
+                        return (
+                            <ProjectCard key={project._id} project={project} deleteProject={deleteProject} />
+                        );
+                    })
+                }
+                {projects && !projects.length && <h5>No Results to Display</h5>}
+            </Row>
+            <Row>
+                <Col size="md-3">
+                    <Link to="/shapeSelect">← Back to Shapes</Link>
                 </Col>
             </Row>
         </Container>

@@ -3,12 +3,13 @@ import * as THREE from "three";
 import ThreeDText from '../ThreeText/threeText';
 import MediaQuery from 'react-responsive';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 import './style.css';
 
 class Landing extends Component {
     constructor(props) {
         super(props)
-        this.state = { matches: window.matchMedia("(min-width: 992px)").matches };
+        this.state = { matches: window.matchMedia("(min-width: 922px)").matches };
     }
 
     componentDidMount() {
@@ -31,6 +32,7 @@ class Landing extends Component {
                         <Col sm={12}>
                             <h2>Welcome to LandScape!</h2>
                             <p>Venture into the three dimensional world of landscaping where you are able to visualize your created planter boxes.</p>
+                            <Link to='shapeSelect'>Let's Go Landscaping</Link>
                         </Col>
                     </Row>
                 </Container>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import jwt_decode from 'jwt-decode';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class Profile extends Component {
     constructor() {
@@ -26,7 +26,7 @@ class Profile extends Component {
 
     render() {
         if(!localStorage.usertoken){
-            return <p>Not authorized</p>
+            return (<Redirect to='/' />)
         }
 
         return (
@@ -35,7 +35,7 @@ class Profile extends Component {
                     <div className='col-sm-8 mx-auto'>
                         <h1 className='text-center'>PROFILE</h1>       
                     </div>
-                    <table className='table col-md-6 mx-auto'>
+                    <table className='table col-sm-12 col-md-6 mx-auto'>
                         <tbody>
                             <tr>
                                 <td>First Name</td>

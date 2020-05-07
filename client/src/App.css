@@ -117,7 +117,7 @@ a:link {
 }
 
 a:hover {
-    color: #ffffff !important;
+    /* color: #ffffff !important; */
     text-decoration: none;
 }
 

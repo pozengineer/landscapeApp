@@ -70,19 +70,13 @@ router.get('/api/displayprojects', (req, res) => {
         })
 })
 
-router.delete('/api/deleteproject/:id', (req, res) => {
-    Project.remove()
-        .then(response => {
-            if (response) {
-                res.json(response)
-            }
-            else {
-                res.status(400).json({ error: "Projects do not exist" });
-            }
-        })
-        .catch(err => {
-            res.send('error: ' + err);
-        })
+router.delete('/api/deleteProject/:id', (req, res) => {
+    console.log('Deleting project: ' + req.params.id);
+    Project
+      .findById({ _id: req.params.id })
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
 })
 
 // Matches with "/api/books/:id"

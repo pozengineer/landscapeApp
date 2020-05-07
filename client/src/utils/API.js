@@ -11,7 +11,7 @@ export default {
   },
   // Deletes the book with the given id
   deleteProject: function(id) {
-    return axios.delete("/api/projects/" + id);
+    return axios.delete("/api/deleteProject/" + id);
   },
   // Saves a book to the database
   saveProject: function(projectData) {
