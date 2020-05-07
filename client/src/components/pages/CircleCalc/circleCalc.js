@@ -1,16 +1,11 @@
 import React, { Component } from "react";
 // import "./style.css";
-// import GameLoop from './components/three.js';
 import * as THREE from "three";
 import ThreeD from '../../ThreeD/threeD';
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
-import { ThemeProvider } from '@zendeskgarden/react-theming';
-import { Dropdown, Menu, Trigger } from '@zendeskgarden/react-dropdowns';
 import { getMaterials, addProject } from '../../UserFunctions/userFunctions';
-// import { Select } from "react-dropdown-select";
 import Select from "react-select";
-// import { Redirect } from 'react-router-dom';
 
 class CircleCalc extends Component {
     constructor(props) {
@@ -28,44 +23,19 @@ class CircleCalc extends Component {
             volume: '',
             chosenMaterial: '',
             reqTonne: '',
-            reqCost: '',
-            brandSelect: ''
+            reqCost: ''
         }
 
         this.onChange = this.onChange.bind(this);
         this.onCalculate = this.onCalculate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onSelectChanged = this.onSelectChanged.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleChange = this.handleChange.bind(this);
     }
 
     circle = element => {
         let geometry;
         geometry = new THREE.CylinderGeometry(2, 2, 3, 20);
         return geometry;
-    }
-
-    handleInputChange = value => {
-        console.log(`Selected: ${value}`);
-        this.setState({
-            selectValue: value
-        });
-        console.log('Selected: ' + this.state.material);
-        if (value === 'pebble') {
-            console.log('heavy hitter!');
-        }
-        else if (value === 'gardenMix') {
-            console.log('planting!');
-        }
-        else {
-            console.log('cement mixing!');
-        }
-    }
-
-    handleChange(event) {
-        this.setState({ selectValue: event.target.value });
-        console.log(this.state.selectValue);
     }
 
     onChange(event) {
@@ -95,7 +65,7 @@ class CircleCalc extends Component {
                 console.log(matchMaterial);
                 let materialDensity = matchMaterial.density;
                 let materialCost = matchMaterial.cost;
-                let volume = userData.radius * userData.radius * Math.PI;
+                let volume = (userData.radius * userData.radius * Math.PI) * userData.height;
                 let reqTonne = volume * materialDensity;
                 let reqCost = reqTonne * materialCost;
                 this.setState({
@@ -137,14 +107,6 @@ class CircleCalc extends Component {
 
     render() {
         const { materialArray } = this.state;
-
-        let materialList = materialArray.length > 0
-            && materialArray.sort().map((item, i) => {
-                return (
-                    <option key={i} name="material" value={item.material_name}>{item.material_name}</option>
-                )
-            }, this);
-
         var options = materialArray && materialArray.map(element => {
             return {
                 value: element.material_name,

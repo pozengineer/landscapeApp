@@ -14,6 +14,7 @@ import ShapeSelect from './components/pages/ShapeSelect/shapeSelect';
 import SquareCalc from './components/pages/SquareCalc/squareCalc';
 import CircleCalc from './components/pages/CircleCalc/circleCalc';
 import SemiCircleCalc from './components/pages/SemiCircleCalc/semiCircleCalc';
+import TriangleCalc from './components/pages/TriangleCalc/triangleCalc';
 import Footer from './components/Footer/footer';
 import PushDiv from './components/Footer/pushDiv';
 import Projects from './components/Projects/projects';
@@ -37,6 +38,7 @@ class App extends Component {
                             <Route exact path="/squareCalc" component={SquareCalc} />
                             <Route exact path="/circleCalc" component={CircleCalc} />
                             <Route exact path="/semiCircleCalc" component={SemiCircleCalc} />
+                            <Route exact path="/triangleCalc" component={TriangleCalc} />
                             <Route exact path="/projects" component={Projects} />
                             <Route exact path="/projects/:id" component={Detail} />
                         </div>

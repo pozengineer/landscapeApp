@@ -1,25 +1,20 @@
 import React, { Component } from "react";
 // import "./style.css";
-// import GameLoop from './components/three.js';
 import * as THREE from "three";
 import ThreeD from '../../ThreeD/threeD';
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
-import { ThemeProvider } from '@zendeskgarden/react-theming';
-import { Dropdown, Menu, Trigger } from '@zendeskgarden/react-dropdowns';
 import { getMaterials, addProject } from '../../UserFunctions/userFunctions';
-// import { Select } from "react-dropdown-select";
 import Select from "react-select";
-// import { Redirect } from 'react-router-dom';
 
-class SquareCalc extends Component {
+class TriangleCalc extends Component {
     constructor(props) {
         super(props)
         this.state = {
             value: '',
             planter_name: '',
-            length: '',
-            width: '',
+            baseLength: '',
+            perpendicularHeight: '',
             height: '',
             errors: {},
             geometry: '',
@@ -29,44 +24,38 @@ class SquareCalc extends Component {
             volume: '',
             chosenMaterial: '',
             reqTonne: '',
-            reqCost: '',
-            brandSelect: ''
+            reqCost: ''
         }
 
         this.onChange = this.onChange.bind(this);
         this.onCalculate = this.onCalculate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onSelectChanged = this.onSelectChanged.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleChange = this.handleChange.bind(this);
     }
 
-    square = element => {
+    triangle = element => {
         let geometry;
-        geometry = new THREE.BoxGeometry(3, 3, 3);
+        let length = 5;
+        let width = 3;
+
+            var triShape = new THREE.Shape();
+            triShape.moveTo(0, 0);
+            triShape.lineTo(length / 2, width);
+            triShape.lineTo(length, 0);
+            // triShape.lineTo(length, 0);
+            triShape.lineTo(0, 0);
+
+        let extrudeSettings = {
+            steps: 2,
+            depth: 4,
+            bevelEnabled: false,
+            bevelThickness: 1,
+            bevelSize: 1,
+            bevelOffset: 0,
+            bevelSegments: 1
+        };
+        geometry = new THREE.ExtrudeGeometry(triShape, extrudeSettings);
         return geometry;
-    }
-
-    handleInputChange = value => {
-        console.log(`Selected: ${value}`);
-        this.setState({
-            selectValue: value
-        });
-        console.log('Selected: ' + this.state.material);
-        if (value === 'pebble') {
-            console.log('heavy hitter!');
-        }
-        else if (value === 'gardenMix') {
-            console.log('planting!');
-        }
-        else {
-            console.log('cement mixing!');
-        }
-    }
-
-    handleChange(event) {
-        this.setState({ selectValue: event.target.value });
-        console.log(this.state.selectValue);
     }
 
     onChange(event) {
@@ -85,8 +74,8 @@ class SquareCalc extends Component {
         const userData = {
             planter_name: this.state.planter_name,
             chosenMaterial: this.state.selectValue,
-            length: this.state.length,
-            width: this.state.width,
+            baseLength: this.state.baseLength,
+            perpendicularHeight: this.state.perpendicularHeight,
             height: this.state.height
         }
         console.log(userData.chosenMaterial);
@@ -97,7 +86,7 @@ class SquareCalc extends Component {
                 console.log(matchMaterial);
                 let materialDensity = matchMaterial.density;
                 let materialCost = matchMaterial.cost;
-                let volume = userData.length * userData.width * userData.height;
+                let volume = ((userData.baseLength)/2 * userData.perpendicularHeight) * userData.height;
                 let reqTonne = volume * materialDensity;
                 let reqCost = reqTonne * materialCost;
                 this.setState({
@@ -139,14 +128,6 @@ class SquareCalc extends Component {
 
     render() {
         const { materialArray } = this.state;
-
-        let materialList = materialArray.length > 0
-            && materialArray.sort().map((item, i) => {
-                return (
-                    <option key={i} name="material" value={item.material_name}>{item.material_name}</option>
-                )
-            }, this);
-
         var options = materialArray && materialArray.map(element => {
             return {
                 value: element.material_name,
@@ -168,21 +149,9 @@ class SquareCalc extends Component {
                     </Row>
                     <Row>
                         <Col sm={12} md={{ span: 8, offset: 2 }}>
-                            <ThreeD geometry={this.square} />
+                            <ThreeD geometry={this.triangle} />
                         </Col>
-                        <Col sm={12} md={12}>
-                            <ThemeProvider>
-                                <Dropdown onSelect={this.handleInputChange}>
-                                    <Trigger>
-                                        <button>Select Material</button>
-                                    </Trigger>
-                                    <Menu placement="end" arrow>
-                                        {materialList}
-                                    </Menu>
-                                </Dropdown>
-                            </ThemeProvider>
-                        </Col>
-                        <Col md={4}>
+                        <Col md={{ span: 4, offset: 4 }}>
                             {options && <Select
                                 name="form-field-name"
                                 value={this.state.selectValue}
@@ -191,16 +160,6 @@ class SquareCalc extends Component {
                                 searchable={false}
                                 onChange={this.onSelectChanged}
                             />}
-                        </Col>
-                        <Col md={12}>
-                            <div>
-                                <select
-                                    value={this.state.selectValue}
-                                    onChange={this.handleChange}
-                                >
-                                    {materialList}
-                                </select>
-                            </div>
                         </Col>
                     </Row>
                     <Row>
@@ -220,28 +179,16 @@ class SquareCalc extends Component {
                                     <span style={{ color: "red" }}>{this.state.errors["planter_name"]}</span>
                                 </div>
                                 <div className='form-group'>
-                                    <label htmlFor='length'>Length in meters</label>
+                                    <label htmlFor='radius'>Radius in meters</label>
                                     <input type='number'
-                                        refs='length'
+                                        refs='radius'
                                         className='form-control'
-                                        name='length'
-                                        placeholder='Enter Length'
-                                        value={this.state.length}
+                                        name='radius'
+                                        placeholder='Enter Radius'
+                                        value={this.state.radius}
                                         onChange={this.onChange}
                                     />
-                                    <span style={{ color: "red" }}>{this.state.errors["length"]}</span>
-                                </div>
-                                <div className='form-group'>
-                                    <label htmlFor='width'>Width in meters</label>
-                                    <input type='number'
-                                        refs='width'
-                                        className='form-control'
-                                        name='width'
-                                        placeholder='Enter Width'
-                                        value={this.state.width}
-                                        onChange={this.onChange}
-                                    />
-                                    <span style={{ color: "red" }}>{this.state.errors["width"]}</span>
+                                    <span style={{ color: "red" }}>{this.state.errors["radius"]}</span>
                                 </div>
                                 <div className='form-group'>
                                     <label htmlFor='Height'>Height in meters</label>
@@ -336,4 +283,4 @@ class SquareCalc extends Component {
     }
 }
 
-export default SquareCalc;
+export default TriangleCalc;

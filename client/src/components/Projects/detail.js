@@ -38,6 +38,14 @@ function Detail(props) {
                 </Col>
                 <Col size="md-10 offset-md-1">
                     <div>
+                        <h5>Volume</h5>
+                        <p>
+                            {project.volume} m&#179;
+                        </p>
+                    </div>
+                </Col>
+                <Col size="md-10 offset-md-1">
+                    <div>
                         <h5>Required Tonne</h5>
                         <p>
                             {project.reqTonne} Tonne

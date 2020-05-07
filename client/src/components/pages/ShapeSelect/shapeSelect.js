@@ -39,7 +39,6 @@ function ShapeSelect() {
     }
 
     const triangleGeometry = element => {
-
         let length = 5;
         let width = 3;
 
@@ -129,7 +128,7 @@ function ShapeSelect() {
                 </Col>
                 <Col xs={12} sm={6} md={6} lg={6} className='threeCanvasDim'>
                     <TwoD geometry={triangleGeometry} />
-                    <Button href="triangle">Triangle</Button>
+                    <Button href="triangleCalc">Triangle</Button>
                 </Col>
             </Row>
         </Container>
