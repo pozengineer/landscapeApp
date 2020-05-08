@@ -9,7 +9,7 @@ import './style.css';
 class Landing extends Component {
     constructor(props) {
         super(props)
-        this.state = { matches: window.matchMedia("(min-width: 922px)").matches };
+        this.state = { matches: window.matchMedia("(min-width: 992px)").matches };
     }
 
     componentDidMount() {

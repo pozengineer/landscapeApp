@@ -14,7 +14,7 @@ function Detail(props) {
         API.getProject(id)
             .then(res => setProject(res.data))
             .catch(err => console.log(err));
-    }, [])
+    }, [id])
 
     if (!localStorage.usertoken) {
         return (<p>Not Authorized</p>)
