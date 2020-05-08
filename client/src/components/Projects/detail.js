@@ -7,8 +7,8 @@ import API from "../../utils/API";
 function Detail(props) {
     const [project, setProject] = useState({})
 
-    // When this component mounts, grab the book with the _id of props.match.params.id
-    // e.g. localhost:3000/books/599dcb67f0f16317844583fc
+    // When this component mounts, grab the project with the _id of props.match.params.id
+    // e.g. localhost:3000/projects/599dcb67f0f16317844583fc
     const { id } = useParams()
     useEffect(() => {
         API.getProject(id)
@@ -16,6 +16,9 @@ function Detail(props) {
             .catch(err => console.log(err));
     }, [])
 
+    if (!localStorage.usertoken) {
+        return (<p>Not Authorized</p>)
+    }
     return (
         <Container fluid>
             <Row>
@@ -28,7 +31,7 @@ function Detail(props) {
                 </Col>
             </Row>
             <Row>
-                <Col size="md-10 offset-md-1">
+                <Col size="md-12">
                     <article>
                         <h5>Chosen Material</h5>
                         <p>
@@ -36,7 +39,7 @@ function Detail(props) {
                         </p>
                     </article>
                 </Col>
-                <Col size="md-10 offset-md-1">
+                <Col size="md-12">
                     <div>
                         <h5>Volume</h5>
                         <p>
@@ -44,7 +47,7 @@ function Detail(props) {
                         </p>
                     </div>
                 </Col>
-                <Col size="md-10 offset-md-1">
+                <Col size="md-12">
                     <div>
                         <h5>Required Tonne</h5>
                         <p>
@@ -52,7 +55,7 @@ function Detail(props) {
                         </p>
                     </div>
                 </Col>
-                <Col size="md-10 offset-md-1">
+                <Col size="md-12">
                     <div>
                         <h5>Required Cost</h5>
                         <p>

@@ -22,7 +22,7 @@ function Projects() {
         getProjects()
             .then(res => {
                 setProjects(res);
-                console.log(JSON.stringify(res));
+                // console.log(JSON.stringify(res));
             })
             .catch(err => console.log(err));
     };

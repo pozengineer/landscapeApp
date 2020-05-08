@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import DeleteBtn from "../../components/DeleteBtn";
-import { Col, Row, Container } from "../../components/Grid";
+import { Col } from "../../components/Grid";
 
 // The ...props means, spread all of the passed props onto this element
 // That way we don't have to define them all individually
