@@ -139,7 +139,7 @@ class SquareCalc extends Component {
                 <Container>
                     <Row>
                         <Col>
-                            <h2>Dimensions of Planter Box</h2>
+                            <h2>Cubic Planter Box</h2>
                         </Col>
                     </Row>
                     <Row>
@@ -160,7 +160,7 @@ class SquareCalc extends Component {
                     <Row>
                         <div className='col-md-6 mt-5'>
                             <form noValidate onSubmit={this.onCalculate}>
-                                <h1 className='h3 mb-3 font-weight normal'>Parameter Input</h1>
+                                <h1 className='h3 mb-3 font-weight normal'>Dimension Input</h1>
                                 <div className='form-group'>
                                     <label htmlFor='planter_name'>Planter Name</label>
                                     <input type='text'
