@@ -52,4 +52,4 @@ This application was built using:
   documentswith schema.
 
 ![landScape home screenshot](client/public/assets/images/landScape01.jpg)
-![videoApp](client/public/assets/video/landScape01.gif)  
+![videoApp](client/public/assets/video/landScapeVideo01.gif)  

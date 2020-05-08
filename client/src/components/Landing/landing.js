@@ -5,6 +5,7 @@ import MediaQuery from 'react-responsive';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 import './style.css';
+import LandScapeVideo from '../../assets/video/landScapeVideo01.gif';
 
 class Landing extends Component {
     constructor(props) {
@@ -29,14 +30,19 @@ class Landing extends Component {
                         </div>
                     </Row>
                     <Row>
-                        <Col sm={12}>
+                        <Col sm={12} className='navLink'>
                             <h2>Welcome to LandScape!</h2>
                             <p>Venture into the three dimensional world of landscaping where you are able to visualize your created planter boxes.</p>
-                            {localStorage.usertoken && <Link to='shapeSelect'> Let's Go Landscaping</Link>}
+                            {localStorage.usertoken && <Link to='shapeSelect' > Let's Go Landscaping</Link>}
                             {!localStorage.usertoken && <p>Already have account
                             <Link to='login'> Click here</Link></p>}
                             {!localStorage.usertoken && <p>Create Account
                             <Link to='register'> Click here</Link></p>}
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm={12}>
+                            <img src={ LandScapeVideo } alt="loading..." className='img-fluid' />
                         </Col>
                     </Row>
                 </Container>
