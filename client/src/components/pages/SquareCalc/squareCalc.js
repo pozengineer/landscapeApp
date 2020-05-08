@@ -39,36 +39,12 @@ class SquareCalc extends Component {
         this.onCalculate = this.onCalculate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onSelectChanged = this.onSelectChanged.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleChange = this.handleChange.bind(this);
     }
 
     square = element => {
         let geometry;
         geometry = new THREE.BoxGeometry(3, 3, 3);
         return geometry;
-    }
-
-    handleInputChange = value => {
-        console.log(`Selected: ${value}`);
-        this.setState({
-            selectValue: value
-        });
-        console.log('Selected: ' + this.state.material);
-        if (value === 'pebble') {
-            console.log('heavy hitter!');
-        }
-        else if (value === 'gardenMix') {
-            console.log('planting!');
-        }
-        else {
-            console.log('cement mixing!');
-        }
-    }
-
-    handleChange(event) {
-        this.setState({ selectValue: event.target.value });
-        console.log(this.state.selectValue);
     }
 
     onChange(event) {
@@ -147,14 +123,6 @@ class SquareCalc extends Component {
 
     render() {
         const { materialArray } = this.state;
-
-        let materialList = materialArray.length > 0
-            && materialArray.sort().map((item, i) => {
-                return (
-                    <option key={i} name="material" value={item.material_name}>{item.material_name}</option>
-                )
-            }, this);
-
         var options = materialArray && materialArray.map(element => {
             return {
                 value: element.material_name,
@@ -178,19 +146,7 @@ class SquareCalc extends Component {
                         <Col sm={12} md={{ span: 8, offset: 2 }}>
                             <ThreeD geometry={this.square} />
                         </Col>
-                        <Col sm={12} md={12}>
-                            <ThemeProvider>
-                                <Dropdown onSelect={this.handleInputChange}>
-                                    <Trigger>
-                                        <button>Select Material</button>
-                                    </Trigger>
-                                    <Menu placement="end" arrow>
-                                        {materialList}
-                                    </Menu>
-                                </Dropdown>
-                            </ThemeProvider>
-                        </Col>
-                        <Col md={4}>
+                        <Col md={{ span: 4, offset: 4 }}>
                             {options && <Select
                                 name="form-field-name"
                                 value={this.state.selectValue}
@@ -199,16 +155,6 @@ class SquareCalc extends Component {
                                 searchable={false}
                                 onChange={this.onSelectChanged}
                             />}
-                        </Col>
-                        <Col md={12}>
-                            <div>
-                                <select
-                                    value={this.state.selectValue}
-                                    onChange={this.handleChange}
-                                >
-                                    {materialList}
-                                </select>
-                            </div>
                         </Col>
                     </Row>
                     <Row>
