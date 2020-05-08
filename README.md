@@ -35,7 +35,7 @@ Download and clone the repository from GitHub using the following command:
 git clone https://github.com/pozengineer/landscapeApp.git
 
 In the terminal type in the command
-npm rpm start: To run the server.js file
+npm start: To run the server.js file
 
 This application was built using:
 - HTML: HyperText Markup Language that allows the developer to describe pages
