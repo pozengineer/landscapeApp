@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import jwt_decode from 'jwt-decode';
 import { Link, Redirect } from "react-router-dom";
+import { Col, Row, Container } from "../../components/Grid";
 
 class Profile extends Component {
     constructor() {
@@ -9,13 +10,12 @@ class Profile extends Component {
             first_name: '',
             last_name: '',
             email: '',
-            password: ''
         }
     }
 
     componentDidMount() {
         const token = localStorage.usertoken;
-        if(!token) {return};
+        if (!token) { return };
         const decoded = jwt_decode(token);
         this.setState({
             first_name: decoded.first_name,
@@ -25,35 +25,45 @@ class Profile extends Component {
     }
 
     render() {
-        if(!localStorage.usertoken){
+        if (!localStorage.usertoken) {
             return (<Redirect to='/' />)
         }
 
         return (
-            <div className='container'>
+            <Container fluid>
                 <div className='jumbotron mt-5'>
                     <div className='col-sm-8 mx-auto'>
-                        <h1 className='text-center'>PROFILE</h1>       
+                        <h1 className='text-center'>PROFILE</h1>
                     </div>
-                    <table className='table col-sm-12 col-md-6 mx-auto'>
-                        <tbody>
-                            <tr>
-                                <td>First Name</td>
-                                <td>{ this.state.first_name }</td>
-                            </tr>
-                            <tr>
-                                <td>Last Name</td>
-                                <td>{ this.state.last_name }</td>
-                            </tr>
-                            <tr>
-                                <td>Email</td>
-                                <td>{ this.state.email }</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <Row>
+                        <Col size="md-12">
+                            <article>
+                                <h5>First Name</h5>
+                                <p>
+                                    {this.state.first_name}
+                                </p>
+                            </article>
+                        </Col>
+                        <Col size="md-12">
+                            <div>
+                                <h5>Last Name</h5>
+                                <p>
+                                    {this.state.last_name}
+                                </p>
+                            </div>
+                        </Col>
+                        <Col size="md-12">
+                            <div>
+                                <h5>Required Tonne</h5>
+                                <p>
+                                    {this.state.email}
+                                </p>
+                            </div>
+                        </Col>
+                    </Row>
                 </div>
                 <Link to='shapeSelect'>Let's Go Landscaping</Link>
-            </div>
+            </Container>
         )
     }
 }

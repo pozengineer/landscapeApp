@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import "./style.css";
 import * as THREE from "three";
-import ThreeD from '../../ThreeD/threeD';
+import ThreeD from '../../ThreeD/threeDXaxis';
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
 import { getMaterials, addProject } from '../../UserFunctions/userFunctions';
@@ -23,7 +23,8 @@ class semiCircleCalc extends Component {
             volume: '',
             chosenMaterial: '',
             reqTonne: '',
-            reqCost: ''
+            reqCost: '',
+            matches: window.matchMedia("(min-width: 922px)").matches
         }
 
         this.onChange = this.onChange.bind(this);
@@ -125,6 +126,8 @@ class semiCircleCalc extends Component {
     }
 
     componentDidMount() {
+        const handler = e => this.setState({ matches: e.matches });
+        window.matchMedia("(min-width: 768px)").addListener(handler);
         getMaterials()
             .then(data => {
                 const materialArray = data;
@@ -158,7 +161,9 @@ class semiCircleCalc extends Component {
                     </Row>
                     <Row>
                         <Col sm={12} md={{ span: 8, offset: 2 }}>
-                            <ThreeD geometry={this.semiCircle} />
+                            {this.state.matches && (<ThreeD geometry={this.semiCircle} cameraPos={85} />)}
+                            {!this.state.matches && (<ThreeD geometry={this.semiCircle} cameraPos={130} />)}
+                            {/* <ThreeD geometry={this.semiCircle} /> */}
                         </Col>
                         <Col md={{ span: 4, offset: 4 }}>
                             {options && <Select

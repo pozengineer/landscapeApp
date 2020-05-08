@@ -10,6 +10,7 @@ import { Dropdown, Menu, Trigger } from '@zendeskgarden/react-dropdowns';
 import { getMaterials, addProject } from '../../UserFunctions/userFunctions';
 // import { Select } from "react-dropdown-select";
 import Select from "react-select";
+import jwt_decode from 'jwt-decode';
 // import { Redirect } from 'react-router-dom';
 
 class SquareCalc extends Component {
@@ -30,7 +31,8 @@ class SquareCalc extends Component {
             chosenMaterial: '',
             reqTonne: '',
             reqCost: '',
-            brandSelect: ''
+            email: '',
+            _id: ''
         }
 
         this.onChange = this.onChange.bind(this);
@@ -127,6 +129,12 @@ class SquareCalc extends Component {
     }
 
     componentDidMount() {
+        const token = localStorage.usertoken;
+        if(!token) {return};
+        const decoded = jwt_decode(token);
+        this.setState({
+            _id: decoded._id
+        });
         getMaterials()
             .then(data => {
                 const materialArray = data;
@@ -157,7 +165,7 @@ class SquareCalc extends Component {
         if (!localStorage.usertoken) {
             return (<p>Not Authorized</p>)
         }
-
+        console.log(this.state._id);
         return (
             <div>
                 <Container>

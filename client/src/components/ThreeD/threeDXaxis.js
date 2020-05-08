@@ -78,9 +78,9 @@ class ThreeD extends Component {
                 time *= 0.001;
                 requestAnimationFrame(animate);
                 // resizeCanvasToDisplaySize();
-                threeDimObject.rotation.x += 0.00;
-                threeDimObject.rotation.y += 0.01;
-                threeDimObject.rotation.z += 0.01;
+                threeDimObject.rotation.x += 0.01;
+                threeDimObject.rotation.y += 0.00;
+                threeDimObject.rotation.z += 0.00;
                 renderer.render(scene, camera);
             };
             animate();

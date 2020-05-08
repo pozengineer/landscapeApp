@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import "./style.css";
 import * as THREE from "three";
-import ThreeD from '../../ThreeD/threeD';
+import ThreeD from '../../ThreeD/threeDXaxis';
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from 'react-bootstrap';
 import { getMaterials, addProject } from '../../UserFunctions/userFunctions';
@@ -24,7 +24,8 @@ class TriangleCalc extends Component {
             volume: '',
             chosenMaterial: '',
             reqTonne: '',
-            reqCost: ''
+            reqCost: '',
+            matches: window.matchMedia("(min-width: 922px)").matches
         }
 
         this.onChange = this.onChange.bind(this);
@@ -116,6 +117,8 @@ class TriangleCalc extends Component {
     }
 
     componentDidMount() {
+        const handler = e => this.setState({ matches: e.matches });
+        window.matchMedia("(min-width: 768px)").addListener(handler);
         getMaterials()
             .then(data => {
                 const materialArray = data;
@@ -149,7 +152,9 @@ class TriangleCalc extends Component {
                     </Row>
                     <Row>
                         <Col sm={12} md={{ span: 8, offset: 2 }}>
-                            <ThreeD geometry={this.triangle} />
+                            {this.state.matches && (<ThreeD geometry={this.triangle} cameraPos={85} />)}
+                            {!this.state.matches && (<ThreeD geometry={this.triangle} cameraPos={130} />)}
+                            {/* <ThreeD geometry={this.triangle} /> */}
                         </Col>
                         <Col md={{ span: 4, offset: 4 }}>
                             {options && <Select
@@ -179,19 +184,31 @@ class TriangleCalc extends Component {
                                     <span style={{ color: "red" }}>{this.state.errors["planter_name"]}</span>
                                 </div>
                                 <div className='form-group'>
-                                    <label htmlFor='radius'>Radius in meters</label>
+                                    <label htmlFor='baseLength'>Base Length in meters</label>
                                     <input type='number'
-                                        refs='radius'
+                                        refs='baseLength'
                                         className='form-control'
-                                        name='radius'
-                                        placeholder='Enter Radius'
-                                        value={this.state.radius}
+                                        name='baseLength'
+                                        placeholder='Enter Base length'
+                                        value={this.state.baseLength}
                                         onChange={this.onChange}
                                     />
-                                    <span style={{ color: "red" }}>{this.state.errors["radius"]}</span>
+                                    <span style={{ color: "red" }}>{this.state.errors["baseLength"]}</span>
                                 </div>
                                 <div className='form-group'>
-                                    <label htmlFor='Height'>Height in meters</label>
+                                    <label htmlFor='perpendicularHeight'>Perpendicular Height in meters</label>
+                                    <input type='number'
+                                        refs='perpendicularHeight'
+                                        className='form-control'
+                                        name='perpendicularHeight'
+                                        placeholder='Enter Perpendicular Height'
+                                        value={this.state.perpendicularHeight}
+                                        onChange={this.onChange}
+                                    />
+                                    <span style={{ color: "red" }}>{this.state.errors["perpendicularHeight"]}</span>
+                                </div>
+                                <div className='form-group'>
+                                    <label htmlFor='height'>Height of Planter in meters</label>
                                     <input type='number'
                                         refs='height'
                                         className='form-control'
