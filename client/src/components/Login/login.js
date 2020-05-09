@@ -37,7 +37,7 @@ class Login extends Component {
                 }
             }).filter(item => { return item; })[0];
 
-            console.log(validEmail);
+            // console.log(validEmail);
             
             if (validEmail) {
                 loginUser(userData).then(res => {

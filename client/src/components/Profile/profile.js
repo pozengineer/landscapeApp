@@ -54,7 +54,7 @@ class Profile extends Component {
                         </Col>
                         <Col size="md-12">
                             <div>
-                                <h5>Required Tonne</h5>
+                                <h5>Email</h5>
                                 <p>
                                     {this.state.email}
                                 </p>
