@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Col, Row, Container } from "../../components/Grid";
+import { Row, Container } from "../../components/Grid";
+import { Col } from "react-bootstrap";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
 import Material from '../../assets/images/material05.png';
@@ -39,7 +40,7 @@ function Detail(props) {
                 </div>
             </div>
             <Row>
-                <Col size="md-12">
+                <Col md={12}>
                     <article>
                         <h5>Chosen Material</h5>
                         <p>
@@ -47,7 +48,7 @@ function Detail(props) {
                         </p>
                     </article>
                 </Col>
-                <Col size="md-12">
+                <Col md={12}>
                     <div>
                         <h5>Volume</h5>
                         <p>
@@ -55,7 +56,7 @@ function Detail(props) {
                         </p>
                     </div>
                 </Col>
-                <Col size="md-12">
+                <Col md={12}>
                     <div>
                         <h5>Required Tonne</h5>
                         <p>
@@ -63,7 +64,7 @@ function Detail(props) {
                         </p>
                     </div>
                 </Col>
-                <Col size="md-12">
+                <Col md={12}>
                     <div>
                         <h5>Required Cost</h5>
                         <p>
