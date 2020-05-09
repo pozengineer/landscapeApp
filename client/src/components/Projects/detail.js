@@ -3,8 +3,19 @@ import { Link, useParams } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import Jumbotron from "../../components/Jumbotron";
 import API from "../../utils/API";
+import Material from '../../assets/images/material05.png';
+import "./style.css";
 
 function Detail(props) {
+    const mediaMatch = window.matchMedia("(min-width: 768px)");
+    const [matches, setMatches] = useState(mediaMatch.matches);
+
+    useEffect(() => {
+        const handler = e => setMatches(e.matches);
+        mediaMatch.addListener(handler);
+        return () => mediaMatch.removeListener(handler);
+    });
+
     const [project, setProject] = useState({})
 
     // When this component mounts, grab the project with the _id of props.match.params.id
@@ -21,15 +32,12 @@ function Detail(props) {
     }
     return (
         <Container fluid>
-            <Row>
-                <Col size="md-12">
-                    <Jumbotron>
-                        <h1>
-                            {project.planter_name}
-                        </h1>
-                    </Jumbotron>
-                </Col>
-            </Row>
+            <div className='jumbotron mt-5' style={{ backgroundImage: `url(${Material})`, backgroundSize: 'cover', backgroundPosition: 'center center', backgroundRepeat: 'no-repeat' }}>
+                <div className='pageTitleContainer'>
+                    {matches && <h1>{project.planter_name}</h1>}
+                    {!matches && <h5>{project.planter_name}</h5>}
+                </div>
+            </div>
             <Row>
                 <Col size="md-12">
                     <article>

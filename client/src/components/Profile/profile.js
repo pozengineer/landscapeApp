@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import jwt_decode from 'jwt-decode';
 import { Link, Redirect } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
+import Material from '../../assets/images/material02.png';
+import "./style.css";
 
 class Profile extends Component {
     constructor() {
@@ -31,36 +33,38 @@ class Profile extends Component {
 
         return (
             <Container fluid>
-                <div className='jumbotron mt-5'>
-                    <div className='col-sm-8 mx-auto'>
-                        <h1 className='text-center'>PROFILE</h1>
+                <div className='jumbotron mt-5' style={{ backgroundImage: `url(${Material})` }}>
+                    <div className='profileContainer'>
+                        <div className='col-sm-8 mx-auto'>
+                            <h1 className='text-center'>PROFILE</h1>
+                        </div>
+                        <Row>
+                            <Col size="md-12">
+                                <article>
+                                    <h5>First Name</h5>
+                                    <p>
+                                        {this.state.first_name}
+                                    </p>
+                                </article>
+                            </Col>
+                            <Col size="md-12">
+                                <div>
+                                    <h5>Last Name</h5>
+                                    <p>
+                                        {this.state.last_name}
+                                    </p>
+                                </div>
+                            </Col>
+                            <Col size="md-12">
+                                <div>
+                                    <h5>Email</h5>
+                                    <p>
+                                        {this.state.email}
+                                    </p>
+                                </div>
+                            </Col>
+                        </Row>
                     </div>
-                    <Row>
-                        <Col size="md-12">
-                            <article>
-                                <h5>First Name</h5>
-                                <p>
-                                    {this.state.first_name}
-                                </p>
-                            </article>
-                        </Col>
-                        <Col size="md-12">
-                            <div>
-                                <h5>Last Name</h5>
-                                <p>
-                                    {this.state.last_name}
-                                </p>
-                            </div>
-                        </Col>
-                        <Col size="md-12">
-                            <div>
-                                <h5>Email</h5>
-                                <p>
-                                    {this.state.email}
-                                </p>
-                            </div>
-                        </Col>
-                    </Row>
                 </div>
                 <Link to='shapeSelect'>Let's Go Landscaping</Link>
             </Container>

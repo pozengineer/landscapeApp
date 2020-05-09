@@ -7,8 +7,18 @@ import { Col, Row, Container } from "../../components/Grid";
 import { Link } from "react-router-dom";
 import { getProjects } from '../UserFunctions/userFunctions';
 import { ProjectCard } from './project';
+import "./style.css";
 
 function Projects() {
+    const mediaMatch = window.matchMedia("(min-width: 768px)");
+    const [matches, setMatches] = useState(mediaMatch.matches);
+
+    useEffect(() => {
+        const handler = e => setMatches(e.matches);
+        mediaMatch.addListener(handler);
+        return () => mediaMatch.removeListener(handler);
+    });
+
     // Setting our component's initial state
     const [projects, setProjects] = useState([])
 
@@ -40,7 +50,10 @@ function Projects() {
     return (
         <Container fluid>
             <Jumbotron>
-                <h1>Projects On My List</h1>
+                <div className='pageTitleContainer'>
+                    {matches && <h1>Projects On My List</h1>}
+                    {!matches && <h5>Projects On My List</h5>}
+                </div>
             </Jumbotron>
             <Row>
                 {projects && projects.length &&
