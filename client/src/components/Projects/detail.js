@@ -39,7 +39,7 @@ function Detail(props) {
                 </div>
             </div>
             <Row>
-                <Col size="md-10">
+                <Col size="md-12">
                     <article>
                         <h5>Chosen Material</h5>
                         <p>
