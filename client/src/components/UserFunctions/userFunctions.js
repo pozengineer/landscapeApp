@@ -92,3 +92,17 @@ export const getProjects = projectData => {
         console.log(err);
     })
 }
+
+export const getUserProjects = projectData => {
+    return axios
+    .get('/api/displayuserprojects/' + projectData, {
+    })
+    .then(response => {
+        // console.log(response.data);
+        // console.log(userData);  
+        return response.data
+    })
+    .catch(err => {
+        console.log(err);
+    })
+}

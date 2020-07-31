@@ -2,25 +2,30 @@
 
 Summary
 
-The web application is a landscape application that enables the user to create a session consisting of
-exercises. The user can input the:
-- type of exercise
-- name of exercise
-- duration
-- distance
-- reps
-- sets
-The user can either select to add additinal exercises, or complete the current workout session. The
-data is sent to a database and then returned the the homepage displaying the accumulated data of all
-entered exercises. The following npm's and methods where used in the development of this application:
+The web application ventures into the three dimensional world of landscaping where the user is able
+the visualize and store created planter boxes. When opening the web application, the user will be
+presented with the landing page displaying a short gif video demonstrating how the applcation is
+utilized. The user is required to register an account in order to access the application. Once the
+user is logged in, they are directed to their profile page. From this point the user can access the
+shapeSelect page where they can choose the shape of their planter box. Then they are directed to the
+calculation page where they are presented with the 3D model of the selected planter box. The user can
+select from a range of materials to fill the planter box. The material data is stored in a database.
+The user enters a name and the dimensions of their planter box and clicks on the 'calculate' button which
+calculates the volume, required amount of material to fill the planter box and the cost. The user has the
+option to change the dimensions and material until they are happy with their inputs. The user can then
+click on the 'submit' button which will take the data entered and save it to a database. The user is
+directed to the projects page where a list of their projects can be viewed. In order to gain access to
+the details of their projects, the user has to click on their project which will send them to the details
+page where the information for their planter box is displayed. The user user can add as many projects as
+they want and will stay looged in until they choose to logout.
+
+The following npm's and methods where used in the development of the backend of this application:
 - express
 - path
 - Procfile
-- .gitignore
 - get
 - post
 - delete
-- .env
 - dotenv
 
 Getting Started
@@ -50,6 +55,8 @@ This application was built using:
   and operate applications in the cloud
 - mongoDB: Is a cross-platform document-oriented database program. It uses JSON-like
   documentswith schema.
+- three.js: Is a cross-browser JavaScript library and application programming interface
+  (API) used to create and display animated 3D computer graphics in a web browser.
 
 ![landScape home screenshot](client/public/assets/images/landScape01.jpg)
 ![videoApp](client/public/assets/video/landScapeVideo01.gif)  

@@ -62,7 +62,22 @@ router.get('/api/displayprojects', (req, res) => {
                 res.json(response)
             }
             else {
-                res.status(400).json({ error: "Projectss do not exist" });
+                res.status(400).json({ error: "Projects do not exist" });
+            }
+        })
+        .catch(err => {
+            res.send('error: ' + err);
+        })
+})
+
+router.get('/api/displayuserprojects/:volume', (req, res) => {
+    Project.find({"chosenMaterial": req.params.volume})
+        .then(response => {
+            if (response) {
+                res.json(response)
+            }
+            else {
+                res.status(400).json({ error: "Projects do not exist" });
             }
         })
         .catch(err => {

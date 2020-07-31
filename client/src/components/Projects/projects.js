@@ -6,8 +6,10 @@ import { Col, Row, Container } from "../../components/Grid";
 // import { Input, TextArea, FormBtn } from "../../components/Form";
 import { Link } from "react-router-dom";
 import { getProjects } from '../UserFunctions/userFunctions';
+import { getUserProjects } from '../UserFunctions/userFunctions';
 import { ProjectCard } from './project';
 import "./style.css";
+import jwt_decode from 'jwt-decode';
 
 function Projects() {
     const mediaMatch = window.matchMedia("(min-width: 768px)");
@@ -21,15 +23,27 @@ function Projects() {
 
     // Setting our component's initial state
     const [projects, setProjects] = useState([])
+    const [userId, setUserId] = useState([])
 
     // Load all books and store them with setBooks
     useEffect(() => {
         loadProjects()
     }, [])
 
+    useEffect(() => {
+        const token = localStorage.usertoken;
+        if(!token) {return};
+        const decoded = jwt_decode(token);
+        setUserId({
+            _id: decoded._id
+        });
+    }, [])
+
     // Loads all books and sets them to books
     function loadProjects() {
         getProjects()
+        // getUserProjects("Road Base")
+        // getUserProjects(userId._id)
             .then(res => {
                 setProjects(res);
                 // console.log(JSON.stringify(res));
@@ -47,6 +61,7 @@ function Projects() {
     if (!localStorage.usertoken) {
         return (<p>Not Authorized</p>)
     }
+    console.log(userId);
     return (
         <Container fluid>
             <Jumbotron>

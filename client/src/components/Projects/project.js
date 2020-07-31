@@ -7,6 +7,9 @@ import { Col } from "../../components/Grid";
 // The ...props means, spread all of the passed props onto this element
 // That way we don't have to define them all individually
 export const ProjectCard = (props) => {
+    if (!localStorage.usertoken) {
+        return (<p>Not Authorized</p>)
+    }
     return (
         <Col size="md-4">
             <Card>
