@@ -33,7 +33,7 @@
     "redux-thunk": "^2.3.0",
     "semantic-ui-react": "^0.88.2",
     "styled-components": "^5.1.0",
-    "three": "^0.115.0"
+    "three": "^0.137.0"
   },
   "scripts": {
     "start": "react-scripts start",
